@@ -18,6 +18,7 @@ Route::get('/', function () {
 
 Route::get('universidades', [UniversidadController::class, 'index'])->name('universidades.index');
 Route::get('menus', [MenuController::class, 'index'])->name('menus.index');
+Route::get('configuraciones', [ConfiguracionController::class, 'index'])->name('configuraciones.index');
 
 Route::resource('universidades', UniversidadController::class);
 Route::resource('configuraciones', ConfiguracionController::class);

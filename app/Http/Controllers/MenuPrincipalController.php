@@ -5,13 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\MenuPrincipal;
 use App\Models\Modulo;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class MenuPrincipalController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $menus_principales = MenuPrincipal::with('modulo')->get();
-        return view('menus-principales.index', compact('menus_principales'));
+        if ($request->ajax()) {
+            $data = MenuPrincipal::with('modulo')->select('menus_principales.*');
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $btn = '<a href="' . route('menus-principales.edit', $row->id_menu_principal) . '" class="edit btn btn-primary btn-sm">Edit</a>';
+                    $btn .= '<button class="btn btn-danger btn-sm" style="margin-left: 5px;">Delete</button>';
+                    return $btn;
+                })
+                ->editColumn('modulo', function($row){
+                    return $row->modulo->nombre;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('menus-principales.index');
     }
 
     public function create()

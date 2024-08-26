@@ -5,13 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Configuracion;
 use App\Models\Universidad;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class ConfiguracionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $configuraciones = Configuracion::all();
-        return view('configuraciones.index', compact('configuraciones'));
+        if ($request->ajax()) {
+            $data = Configuracion::with('universidad')->select('configuraciones.*');
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $btn = '<a href="' . route('configuraciones.edit', $row->id_configuracion) . '" class="edit btn btn-primary btn-sm">Edit</a>';
+                    $btn .= '<button class="btn btn-danger btn-sm" style="margin-left: 5px;">Delete</button>';
+                    return $btn;
+                })
+                ->editColumn('universidad', function($row){
+                    return $row->universidad->nombre;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('configuraciones.index');
     }
 
     public function create()
