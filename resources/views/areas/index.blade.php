@@ -1,37 +1,19 @@
-<x-navigation-menu />
-<div>
-    <h1>Áreas</h1>
-    <a href="{{ route('areas.create') }}">Crear Área</a>
+@extends('layouts.app')
 
-    <table>
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Universidad</th>
-            <th>Nombre</th>
-            <th>Nombre Abreviado</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($areas as $area)
-            <tr>
-                <td>{{ $area->id_area }}</td>
-                <td>{{ $area->universidad->nombre }}</td>
-                <td>{{ $area->nombre }}</td>
-                <td>{{ $area->nombre_abreviado }}</td>
-                <td>{{ $area->estado }}</td>
-                <td>
-                    <a href="{{ route('areas.edit', $area->id_area) }}">Editar</a>
-                    <form method="POST" action="{{ route('areas.destroy', $area->id_area) }}" style="display:inline-block;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar esta área?')">Eliminar</button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
-</div>
+@section('title', 'Áreas')
+
+@section('content')
+    <x-navigation-menu />
+    <x-datatable
+        title="Áreas"
+        createRoute="{{ route('areas.create') }}"
+        ajaxRoute="{{ route('areas.index') }}"
+        :columns="[
+            ['label' => 'No', 'data' => 'id_area', 'name' => 'id_area'],
+            ['label' => 'Nombre', 'data' => 'nombre', 'name' => 'nombre'],
+            ['label' => 'Nombre Abreviado', 'data' => 'nombre_abreviado', 'name' => 'nombre_abreviado'],
+            ['label' => 'Universidad', 'data' => 'universidad', 'name' => 'universidad.nombre'],
+            ['label' => 'Estado', 'data' => 'estado', 'name' => 'estado'],
+        ]"
+    />
+@endsection

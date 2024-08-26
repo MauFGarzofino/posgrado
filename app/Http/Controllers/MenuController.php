@@ -13,6 +13,7 @@ class MenuController extends Controller
     {
         if ($request->ajax()) {
             $data = Menu::with('menuPrincipal')->select('menus.*');
+
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){

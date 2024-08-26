@@ -4,13 +4,26 @@ namespace App\Http\Controllers;
 
 use App\Models\Modulo;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class ModuloController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $modulos = Modulo::all();
-        return view('modulos.index', compact('modulos'));
+        if ($request->ajax()) {
+            $data = Modulo::query();
+
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $btn = '<a href="' . route('modulos.edit', $row->id_modulo) . '" class="edit btn btn-primary btn-sm">Edit</a>';
+                    $btn .= '<button class="btn btn-danger btn-sm" style="margin-left: 5px;">Delete</button>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('modulos.index');
     }
 
     public function create()
