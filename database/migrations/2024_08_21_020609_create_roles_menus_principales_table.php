@@ -17,7 +17,7 @@ return new class extends Migration
             ->constrained('roles', 'id_rol')
                 ->onDelete('cascade'); // ForeignKey reference to roles
             $table->foreignId('id_menu_principal') // INT NOT NULL
-            ->constrained('menus-principales', 'id_menu_principal')
+            ->constrained('menus_principales', 'id_menu_principal')
                 ->onDelete('cascade'); // ForeignKey reference to menus-principales
             $table->char('estado', 1)->default('S');
             $table->timestamps();
