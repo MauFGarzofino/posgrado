@@ -34,7 +34,6 @@ class RolMenuPrincipalController extends Controller
                 ->make(true);
         }
 
-        // Pasamos las variables $roles y $menusPrincipales a la vista
         return view('roles-menus-principales.index', compact('roles', 'menusPrincipales'));
     }
 

@@ -1,0 +1,64 @@
+/* Variables */
+:root {
+    --primary-bg-color: #3a3f44;
+    --primary-text-color: #ffffff;
+    --secondary-bg-color: #f4f6f9;
+    --secondary-text-color: #250000;
+    --accent-color: rgba(236, 232, 232, 0.94);
+    --header-bg-color: #000000;
+    --header-text-color: #ffffff;
+    --sidebar-bg-color: rgba(52, 58, 64, 0.94);
+    --sidebar-width: 250px;
+}
+
+body {
+    background-color: var(--secondary-bg-color);
+    color: var(--secondary-text-color);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.bg-primary {
+    background-color: var(--sidebar-bg-color) !important;
+}
+
+.text-white {
+    color: var(--primary-text-color) !important;
+}
+
+header {
+    background-color: black;
+    color: black;
+    width: 100%;
+}
+
+/* Sidebar */
+aside {
+    background-color: var(--sidebar-bg-color);
+    min-height: calc(100vh - 56px);
+}
+
+main {
+    background-color: var(--secondary-bg-color);
+    color: black;
+}
+
+.card-header {
+    background-color: var(--sidebar-bg-color);
+    color: white;
+}
+
+.card-body {
+    background-color: white;
+    color: var(--secondary-text-color);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:hover {
+    color: var(--accent-color);
+}

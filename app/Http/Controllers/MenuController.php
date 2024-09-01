@@ -33,7 +33,7 @@ class MenuController extends Controller
 
     public function create()
     {
-        $menusPrincipales = MenuPrincipal::all(); // Obtener todos los menús principales
+        $menusPrincipales = MenuPrincipal::all();
         return view('menus.create', compact('menusPrincipales'));
     }
 

@@ -72,6 +72,5 @@
         var titulo = "Módulo";
     </script>
 
-    <!-- Incluir el archivo crud.js -->
     <script src="{{ asset('js/custom/crud.js') }}"></script>
 @endsection
