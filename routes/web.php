@@ -14,6 +14,10 @@ use App\Http\Controllers\UniversidadController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', function () {
+    return redirect()->route('dashboard');
+})->name('home');
+
 // Authentication routes
 Route::get('/usuario/login', [AuthController::class, 'login'])->name('login');
 Route::post('/usuario/login', [AuthController::class, 'authenticate'])->name('authenticate');
