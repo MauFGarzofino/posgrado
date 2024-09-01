@@ -27,7 +27,6 @@ class AreaController extends Controller
                 ->make(true);
         }
 
-        // Obtener todas las universidades para el dropdown
         $universidades = Universidad::all();
 
         return view('areas.index', compact('universidades'));

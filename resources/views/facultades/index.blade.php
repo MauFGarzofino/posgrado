@@ -165,6 +165,5 @@
         var titulo = "Facultad";
     </script>
 
-    <!-- Incluir el archivo crud.js -->
     <script src="{{ asset('js/custom/crud.js') }}"></script>
 @endsection
