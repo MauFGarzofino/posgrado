@@ -11,23 +11,25 @@ class ConfiguracionController extends Controller
 {
     public function index(Request $request)
     {
+        $universidades = Universidad::all();
+
         if ($request->ajax()) {
             $data = Configuracion::with('universidad')->select('configuraciones.*');
-
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    $btn = '<a href="' . route('configuraciones.edit', $row->id_configuracion) . '" class="edit btn btn-primary btn-sm">Edit</a>';
-                    $btn .= '<button class="btn btn-danger btn-sm" style="margin-left: 5px;">Delete</button>';
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="javascript:void(0)" class="editRecord btn btn-primary btn-sm" data-id="' . $row->id_configuracion . '">Edit</a>';
+                    $btn .= '<button class="btn btn-danger btn-sm deleteRecord" data-id="' . $row->id_configuracion . '" style="margin-left: 5px;">Delete</button>';
                     return $btn;
                 })
-                ->editColumn('universidad', function($row){
+                ->editColumn('universidad', function ($row) {
                     return $row->universidad->nombre;
                 })
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('configuraciones.index');
+
+        return view('configuraciones.index', compact('universidades'));
     }
 
     public function create()
@@ -47,7 +49,7 @@ class ConfiguracionController extends Controller
 
         Configuracion::create($request->all());
 
-        return redirect()->route('configuraciones.index');
+        return response()->json(['success' => 'Configuración guardada exitosamente.']);
     }
 
     public function show(string $id)
@@ -55,13 +57,11 @@ class ConfiguracionController extends Controller
         //
     }
 
-    public function edit(string $id)
+    public function edit($id)
     {
         $configuracion = Configuracion::findOrFail($id);
-        $universidades = Universidad::all();
-        return view('configuraciones.edit', compact('configuracion'), compact('universidades'));
+        return response()->json($configuracion);
     }
-
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -75,10 +75,9 @@ class ConfiguracionController extends Controller
         $configuracion->update($request->all());
     }
 
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        $configuracion = Configuracion::findOrFail($id);
-        $configuracion->delete();
-        return redirect()->route('configuraciones.index');
+        Configuracion::findOrFail($id)->delete();
+        return response()->json(['success' => 'Configuración eliminada exitosamente.']);
     }
 }

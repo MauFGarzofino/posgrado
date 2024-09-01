@@ -12,16 +12,14 @@ class RolController extends Controller
     {
         if ($request->ajax()) {
             $data = Rol::with('menusPrincipales')->select('roles.*');
-
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $btn = '<a href="' . route('roles.edit', $row->id_rol) . '" class="edit btn btn-primary btn-sm">Edit</a>';
-                    $btn .= '<button class="btn btn-danger btn-sm" style="margin-left: 5px;">Delete</button>';
+                    $btn = '<button type="button" class="editRecord btn btn-primary btn-sm" data-id="'.$row->id_rol.'">Edit</button>';
+                    $btn .= '<button class="btn btn-danger btn-sm deleteRecord" data-id="'.$row->id_rol.'" style="margin-left: 5px;">Delete</button>';
                     return $btn;
                 })
                 ->editColumn('menus_principales', function($row){
-                    // Retornar una lista de nombres de menús principales separados por coma
                     return $row->menusPrincipales->pluck('nombre')->implode(', ');
                 })
                 ->rawColumns(['action'])
@@ -43,15 +41,18 @@ class RolController extends Controller
             'estado' => 'required|in:S,N',
         ]);
 
-        Rol::create($request->all());
+        Rol::updateOrCreate(
+            ['id_rol' => $request->id_rol],
+            $request->all()
+        );
 
-        return redirect()->route('roles.index')->with('success', 'Rol creado con éxito');
+        return response()->json(['success' => 'Rol guardado exitosamente.']);
     }
 
     public function edit(string $id)
     {
         $rol = Rol::findOrFail($id);
-        return view('roles.edit', compact('rol'));
+        return response()->json($rol);
     }
 
     public function update(Request $request, string $id)
@@ -73,6 +74,6 @@ class RolController extends Controller
         $rol = Rol::findOrFail($id);
         $rol->delete();
 
-        return redirect()->route('roles.index')->with('success', 'Rol eliminado con éxito');
+        return response()->json(['success' => 'Rol eliminado con éxito.']);
     }
 }
