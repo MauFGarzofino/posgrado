@@ -14,9 +14,9 @@ class UniversidadController extends Controller
             $data = Universidad::query();
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function($row){
-                    $btn = '<a href="' . route('universidades.edit', $row->id_universidad) . '" class="edit btn btn-primary btn-sm">Edit</a>';
-                    $btn .= '<button class="btn btn-danger btn-sm" style="margin-left: 5px;">Delete</button>';
+                ->addColumn('action', function ($row) {
+                    $btn = '<button type="button" class="editRecord btn btn-primary btn-sm" data-id="'.$row->id_universidad.'">Edit</button>';
+                    $btn .= '<button class="btn btn-danger btn-sm deleteRecord" data-id="'.$row->id_universidad.'" style="margin-left: 5px;">Delete</button>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -39,9 +39,19 @@ class UniversidadController extends Controller
             'estado' => 'required|in:S,N',
         ]);
 
-        Universidad::create($request->all());
+        // Crear o Actualizar el Registro
+        Universidad::updateOrCreate(
+            ['id_universidad' => $request->id_universidad],
+            [
+                'nombre' => $request->nombre,
+                'nombre_abreviado' => $request->nombre_abreviado,
+                'inicial' => $request->inicial,
+                'estado' => $request->estado
+            ]
+        );
 
-        return redirect()->route('universidades.index');
+        // Retornar una Respuesta JSON
+        return response()->json(['success' => 'Registro guardado exitosamente.']);
     }
 
     public function show(string $id)
@@ -51,9 +61,10 @@ class UniversidadController extends Controller
 
     public function edit($id_universidad)
     {
-        $universidad = Universidad::findOrFail($id_universidad);
-        return view('universidades.edit', compact('universidad'));
+        $table = Universidad::find($id_universidad);
+        return response()->json($table);
     }
+
 
     public function update(Request $request, $id_universidad)
     {
@@ -64,7 +75,7 @@ class UniversidadController extends Controller
             'estado' => 'required|in:S,N',
         ]);
 
-        $universidad = Universidad::findOrFail($id_universidad);
+        $universidad = Universidad::find($id_universidad);
         $universidad->update($request->all());
 
         return redirect()->route('universidades.index');
@@ -72,9 +83,7 @@ class UniversidadController extends Controller
 
     public function destroy(string $id_universidad)
     {
-        $universidad = Universidad::findOrFail($id_universidad);
-        $universidad->delete();
-
-        return redirect()->route('universidades.index');
+        Universidad::find($id_universidad)->delete();
+        return response()->json(['success' => 'Registro eliminado exitosamente.']);
     }
 }

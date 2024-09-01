@@ -13,12 +13,11 @@ class MenuPrincipalController extends Controller
     {
         if ($request->ajax()) {
             $data = MenuPrincipal::with('modulo')->select('menus_principales.*');
-
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $btn = '<a href="' . route('menus-principales.edit', $row->id_menu_principal) . '" class="edit btn btn-primary btn-sm">Edit</a>';
-                    $btn .= '<button class="btn btn-danger btn-sm" style="margin-left: 5px;">Delete</button>';
+                    $btn = '<button type="button" class="editRecord btn btn-primary btn-sm" data-id="'.$row->id_menu_principal.'">Edit</button>';
+                    $btn .= '<button class="btn btn-danger btn-sm deleteRecord" data-id="'.$row->id_menu_principal.'" style="margin-left: 5px;">Delete</button>';
                     return $btn;
                 })
                 ->editColumn('modulo', function($row){
@@ -27,12 +26,14 @@ class MenuPrincipalController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('menus-principales.index');
+
+        $modulos = Modulo::all();
+        return view('menus-principales.index', compact('modulos'));
     }
 
     public function create()
     {
-        $modulos = Modulo::all(); // Obtener todos los módulos para el dropdown
+        $modulos = Modulo::all();
         return view('menus-principales.create', compact('modulos'));
     }
 
@@ -46,17 +47,26 @@ class MenuPrincipalController extends Controller
             'estado' => 'required|in:S,N',
         ]);
 
-        MenuPrincipal::create($request->all());
+        MenuPrincipal::updateOrCreate(
+            ['id_menu_principal' => $request->id_menu_principal],
+            $request->all()
+        );
 
-        return redirect()->route('menus-principales.index')->with('success', 'Menú Principal creado con éxito');
+        return response()->json(['success' => 'Menú Principal guardado exitosamente.']);
     }
 
     public function edit(string $id)
     {
-        $menu_principal = MenuPrincipal::findOrFail($id);
+        $menuPrincipal = MenuPrincipal::findOrFail($id);
         $modulos = Modulo::all();
-        return view('menus-principales.edit', compact('menu_principal', 'modulos'));
+
+        // Asegúrate de incluir todos los campos necesarios en la respuesta
+        return response()->json([
+            'menuPrincipal' => $menuPrincipal,
+            'modulos' => $modulos
+        ]);
     }
+
 
     public function update(Request $request, string $id)
     {
@@ -79,6 +89,6 @@ class MenuPrincipalController extends Controller
         $menu_principal = MenuPrincipal::findOrFail($id);
         $menu_principal->delete();
 
-        return redirect()->route('menus-principales.index')->with('success', 'Menú Principal eliminado con éxito');
+        return response()->json(['success' => 'Menú Principal eliminado con éxito.']);
     }
 }

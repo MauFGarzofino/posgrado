@@ -12,14 +12,12 @@ class FacultadController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            // Cargar la relación con Área usando 'with'
             $data = Facultad::with('area')->select('facultades.*');
-
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $btn = '<a href="' . route('facultades.edit', $row->id_facultad) . '" class="edit btn btn-primary btn-sm">Edit</a>';
-                    $btn .= '<button class="btn btn-danger btn-sm" style="margin-left: 5px;">Delete</button>';
+                    $btn = '<button type="button" class="editRecord btn btn-primary btn-sm" data-id="'.$row->id_facultad.'">Edit</button>';
+                    $btn .= '<button class="btn btn-danger btn-sm deleteRecord" data-id="'.$row->id_facultad.'" style="margin-left: 5px;">Delete</button>';
                     return $btn;
                 })
                 ->editColumn('area', function($row){
@@ -28,12 +26,13 @@ class FacultadController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('facultades.index');
+        $areas = Area::all();
+        return view('facultades.index', compact('areas'));
     }
 
     public function create()
     {
-        $areas = Area::all(); // Obtener todas las áreas
+        $areas = Area::all();
         return view('facultades.create', compact('areas'));
     }
 
@@ -57,16 +56,19 @@ class FacultadController extends Controller
             'estado' => 'required|in:S,N',
         ]);
 
-        Facultad::create($request->all());
+        Facultad::updateOrCreate(
+            ['id_facultad' => $request->id_facultad],
+            $request->all()
+        );
 
-        return redirect()->route('facultades.index')->with('success', 'Facultad creada con éxito');
+        return response()->json(['success' => 'Facultad guardada exitosamente.']);
     }
 
     public function edit(string $id)
     {
         $facultad = Facultad::findOrFail($id);
         $areas = Area::all();
-        return view('facultades.edit', compact('facultad', 'areas'));
+        return response()->json(compact('facultad', 'areas'));
     }
 
     public function update(Request $request, string $id)
@@ -100,6 +102,6 @@ class FacultadController extends Controller
         $facultad = Facultad::findOrFail($id);
         $facultad->delete();
 
-        return redirect()->route('facultades.index')->with('success', 'Facultad eliminada con éxito');
+        return response()->json(['success' => 'Facultad eliminada con éxito.']);
     }
 }

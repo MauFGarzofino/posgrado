@@ -12,12 +12,11 @@ class ModuloController extends Controller
     {
         if ($request->ajax()) {
             $data = Modulo::query();
-
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $btn = '<a href="' . route('modulos.edit', $row->id_modulo) . '" class="edit btn btn-primary btn-sm">Edit</a>';
-                    $btn .= '<button class="btn btn-danger btn-sm" style="margin-left: 5px;">Delete</button>';
+                    $btn = '<button type="button" class="editRecord btn btn-primary btn-sm" data-id="'.$row->id_modulo.'">Edit</button>';
+                    $btn .= '<button class="btn btn-danger btn-sm deleteRecord" data-id="'.$row->id_modulo.'" style="margin-left: 5px;">Delete</button>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -38,15 +37,18 @@ class ModuloController extends Controller
             'estado' => 'required|in:S,N',
         ]);
 
-        Modulo::create($request->all());
+        Modulo::updateOrCreate(
+            ['id_modulo' => $request->id_modulo],
+            $request->all()
+        );
 
-        return redirect()->route('modulos.index')->with('success', 'Módulo creado con éxito');
+        return response()->json(['success' => 'Módulo guardado exitosamente.']);
     }
 
     public function edit(string $id)
     {
         $modulo = Modulo::findOrFail($id);
-        return view('modulos.edit', compact('modulo'));
+        return response()->json($modulo);
     }
 
     public function update(Request $request, string $id)
@@ -67,6 +69,6 @@ class ModuloController extends Controller
         $modulo = Modulo::findOrFail($id);
         $modulo->delete();
 
-        return redirect()->route('modulos.index')->with('success', 'Módulo eliminado con éxito');
+        return response()->json(['success' => 'Módulo eliminado con éxito.']);
     }
 }

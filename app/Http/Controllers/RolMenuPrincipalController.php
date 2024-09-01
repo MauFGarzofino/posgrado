@@ -12,14 +12,16 @@ class RolMenuPrincipalController extends Controller
 {
     public function index(Request $request)
     {
+        $roles = Rol::all();
+        $menusPrincipales = MenuPrincipal::all();
+
         if ($request->ajax()) {
             $data = RolMenuPrincipal::with(['rol', 'menuPrincipal'])->select('roles_menus_principales.*');
-
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $btn = '<a href="' . route('roles-menus-principales.edit', $row->id_rol_menu_principal) . '" class="edit btn btn-primary btn-sm">Edit</a>';
-                    $btn .= '<button class="btn btn-danger btn-sm" style="margin-left: 5px;">Delete</button>';
+                    $btn = '<button type="button" class="editRecord btn btn-primary btn-sm" data-id="'.$row->id_rol_menu_principal.'">Edit</button>';
+                    $btn .= '<button class="btn btn-danger btn-sm deleteRecord" data-id="'.$row->id_rol_menu_principal.'" style="margin-left: 5px;">Delete</button>';
                     return $btn;
                 })
                 ->editColumn('rol', function($row){
@@ -31,7 +33,9 @@ class RolMenuPrincipalController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('roles-menus-principales.index');
+
+        // Pasamos las variables $roles y $menusPrincipales a la vista
+        return view('roles-menus-principales.index', compact('roles', 'menusPrincipales'));
     }
 
     public function create()
@@ -49,9 +53,12 @@ class RolMenuPrincipalController extends Controller
             'estado' => 'required|in:S,N',
         ]);
 
-        RolMenuPrincipal::create($request->all());
+        RolMenuPrincipal::updateOrCreate(
+            ['id_rol_menu_principal' => $request->id_rol_menu_principal],
+            $request->all()
+        );
 
-        return redirect()->route('roles-menus-principales.index')->with('success', 'Rol asociado a Menú Principal creado con éxito');
+        return response()->json(['success' => 'Rol asociado a Menú Principal guardado exitosamente.']);
     }
 
     public function edit(string $id)
@@ -59,7 +66,7 @@ class RolMenuPrincipalController extends Controller
         $rolMenuPrincipal = RolMenuPrincipal::findOrFail($id);
         $roles = Rol::all();
         $menusPrincipales = MenuPrincipal::all();
-        return view('roles-menus-principales.edit', compact('rolMenuPrincipal', 'roles', 'menusPrincipales'));
+        return response()->json(compact('rolMenuPrincipal', 'roles', 'menusPrincipales'));
     }
 
     public function update(Request $request, string $id)
@@ -81,6 +88,6 @@ class RolMenuPrincipalController extends Controller
         $rolMenuPrincipal = RolMenuPrincipal::findOrFail($id);
         $rolMenuPrincipal->delete();
 
-        return redirect()->route('roles-menus-principales.index')->with('success', 'Rol asociado a Menú Principal eliminado con éxito');
+        return response()->json(['success' => 'Rol asociado a Menú Principal eliminado con éxito.']);
     }
 }

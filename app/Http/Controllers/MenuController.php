@@ -13,12 +13,11 @@ class MenuController extends Controller
     {
         if ($request->ajax()) {
             $data = Menu::with('menuPrincipal')->select('menus.*');
-
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $btn = '<a href="' . route('menus.edit', $row->id_menu) . '" class="edit btn btn-primary btn-sm">Edit</a>';
-                    $btn .= '<button class="btn btn-danger btn-sm" style="margin-left: 5px;">Delete</button>';
+                    $btn = '<button type="button" class="editRecord btn btn-primary btn-sm" data-id="'.$row->id_menu.'">Edit</button>';
+                    $btn .= '<button class="btn btn-danger btn-sm deleteRecord" data-id="'.$row->id_menu.'" style="margin-left: 5px;">Delete</button>';
                     return $btn;
                 })
                 ->editColumn('menu_principal', function($row){
@@ -27,7 +26,9 @@ class MenuController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-        return view('menus.index');
+
+        $menusPrincipales = MenuPrincipal::all();
+        return view('menus.index', compact('menusPrincipales'));
     }
 
     public function create()
@@ -49,16 +50,19 @@ class MenuController extends Controller
             'estado' => 'required|in:S,N',
         ]);
 
-        Menu::create($request->all());
+        Menu::updateOrCreate(
+            ['id_menu' => $request->id_menu],
+            $request->all()
+        );
 
-        return redirect()->route('menus.index')->with('success', 'Menú creado con éxito');
+        return response()->json(['success' => 'Menú guardado exitosamente.']);
     }
 
     public function edit(string $id)
     {
         $menu = Menu::findOrFail($id);
         $menusPrincipales = MenuPrincipal::all();
-        return view('menus.edit', compact('menu', 'menusPrincipales'));
+        return response()->json(compact('menu', 'menusPrincipales'));
     }
 
     public function update(Request $request, string $id)
@@ -85,6 +89,6 @@ class MenuController extends Controller
         $menu = Menu::findOrFail($id);
         $menu->delete();
 
-        return redirect()->route('menus.index')->with('success', 'Menú eliminado con éxito');
+        return response()->json(['success' => 'Menú eliminado con éxito.']);
     }
 }
