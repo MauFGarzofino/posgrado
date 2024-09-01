@@ -150,7 +150,6 @@
         </div>
     </div>
 
-    <!-- Pasar variables a JavaScript -->
     <script type="text/javascript">
         var URLindex = "{{ route('facultades.index') }}";
         var columnas = [

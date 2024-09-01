@@ -61,7 +61,6 @@
         </div>
     </div>
 
-    <!-- Pasar variables a JavaScript -->
     <script type="text/javascript">
         var URLindex = "{{ route('modulos.index') }}";
         var columnas = [

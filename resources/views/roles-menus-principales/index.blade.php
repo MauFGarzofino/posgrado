@@ -76,7 +76,6 @@
         </div>
     </div>
 
-    <!-- Pasar variables a JavaScript -->
     <script type="text/javascript">
         var URLindex = "{{ route('roles-menus-principales.index') }}";
         var columnas = [
@@ -89,6 +88,5 @@
         var titulo = "Rol Menú Principal";
     </script>
 
-    <!-- Incluir el archivo crud.js -->
     <script src="{{ asset('js/custom/crud.js') }}"></script>
 @endsection

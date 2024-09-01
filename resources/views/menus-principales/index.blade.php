@@ -86,7 +86,6 @@
         </div>
     </div>
 
-    <!-- Pasar variables a JavaScript -->
     <script type="text/javascript">
         var URLindex = "{{ route('menus-principales.index') }}";
         var columnas = [

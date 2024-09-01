@@ -64,7 +64,10 @@
                         <div class="form-group">
                             <label for="estado" class="col-sm-12 control-label">Estado</label>
                             <div class="col-sm-12">
-                                <input type="text" class="form-control" id="estado" name="estado" placeholder="Estado" maxlength="1" required="">
+                                <select class="form-control" id="estado" name="estado" required="">
+                                    <option value="S">Activo</option>
+                                    <option value="N">Inactivo</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-sm-12">
@@ -76,7 +79,6 @@
         </div>
     </div>
 
-    <!-- Pasar variables a JavaScript -->
     <script type="text/javascript">
         var URLindex = "{{ route('areas.index') }}";
         var columnas = [
@@ -90,6 +92,5 @@
         var titulo = "Área";
     </script>
 
-    <!-- Incluir el archivo crud.js -->
     <script src="{{ asset('js/custom/crud.js') }}"></script>
 @endsection
