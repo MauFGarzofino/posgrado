@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('menus', function (Blueprint $table) {
-            $table->id('id_menu'); // SERIAL NOT NULL
-            $table->foreignId('id_menu_principal') // INT NOT NULL
-            ->constrained('menus-principales', 'id_menu_principal')
-                ->onDelete('cascade'); // ForeignKey reference to menus-principales
+            $table->id('id_menu');
+            $table->foreignId('id_menu_principal')
+                ->constrained('menus_principales', 'id_menu_principal') // Cambiar a menus_principales
+                ->onDelete('cascade');
             $table->string('nombre', 250);
             $table->string('directorio', 350);
             $table->string('icono', 70)->nullable();

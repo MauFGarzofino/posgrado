@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('menus_principales', function (Blueprint $table) {
             $table->id('id_menu_principal');
-            $table->foreignId('id_modulo')->constrained('modulos');
+            $table->foreignId('id_modulo')->constrained('modulos', 'id_modulo');
             $table->string('nombre', 250);
             $table->string('icono', 70)->nullable();
             $table->integer('orden')->nullable();
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menus-principales');
+        Schema::dropIfExists('menus_principales');
     }
 };
