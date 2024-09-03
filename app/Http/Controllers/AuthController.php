@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use App\Models\VPersonaMenuPrincipal;
@@ -81,32 +82,41 @@ class AuthController extends Controller
                 ->first();
 
             // Obtén los submenús asociados al menú principal
-            $menus = \DB::table('menus')
+            $menus = DB::table('menus')
                 ->where('id_menu_principal', $id_menu_principal)
                 ->orderBy('orden', 'ASC')
                 ->get();
 
             $submenu_html = '';
-            foreach ($menus as $menu) {
-                $url = url($menu->directorio);
-                $submenu_html .= '<li class="menu-item">
-                <a href="' . $url . '" class="menu-link">
-                    <div>' . $menu->nombre . '</div>
-                </a>
-            </li>';
+            if ($menus->isNotEmpty()) {
+                foreach ($menus as $menu) {
+                    $url = url($menu->directorio);
+                    $submenu_html .= '<li class="menu-item">
+                    <a href="' . $url . '" class="menu-link">
+                        <div>' . $menu->nombre . '</div>
+                    </a>
+                </li>';
+                }
             }
 
+            // Construye el HTML para el menú principal
             $menu_html .= '<li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons ' . $menu_principal->icono . '"></i>
                 <div data-i18n="' . $menu_principal->nombre . '">' . $menu_principal->nombre . '</div>
-            </a>
-            <ul class="menu-sub">
+            </a>';
+
+            // Si hay submenús, los añadimos dentro de un <ul> oculto
+            if ($submenu_html != '') {
+                $menu_html .= '<ul class="menu-sub" style="display:none;">
                 ' . $submenu_html . '
-            </ul>
-        </li>';
+            </ul>';
+            }
+
+            $menu_html .= '</li>';
         }
 
         return $menu_html;
     }
+
 }
