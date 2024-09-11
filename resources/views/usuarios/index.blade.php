@@ -5,6 +5,27 @@
 @section('content')
     <div class="container">
         <div class="card mt-5">
+            <div class="input-group">
+                <div class="form-outline" data-mdb-input-init>
+                    <input id="search-input" type="search" id="form1" class="form-control" />
+                    <label class="form-label" for="form1">Search</label>
+                </div>
+                <button id="search-button" type="button" class="btn btn-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <hr>
+            <div class="navbar-nav align-items-center">
+                <div class="nav-item navbar-search-wrapper mb-0">
+                    <a class="nav-item nav-link search-toggler d-flex align-items-center px-0" href="javascript:void(0);">
+                        <i class="ti ti-search ti-md me-2"></i>
+                        <span class="d-none d-md-inline-block text-muted">Search (Ctrl+/)</span>
+                    </a>
+                </div>
+            </div>
+
+
             <h3 class="card-header p-3">Usuarios</h3>
             <div class="card-body">
                 <div class="mb-3">
@@ -43,9 +64,10 @@
                         <div class="form-group">
                             <label for="id_persona" class="col-sm-12 control-label">Persona</label>
                             <div class="col-sm-12">
-                                <select class="form-control" id="id_persona" name="id_persona" required="">
+                                <select class="form-control" id="id_persona" name="id_persona">
                                     @foreach($personas as $persona)
-                                        <option value="{{ $persona->id_persona }}">{{ $persona->nombres }} {{ $persona->apellidos }}</option>
+                                        <option
+                                            value="{{ $persona->id_persona }}">{{ $persona->nombres }} {{ $persona->apellidos }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -63,19 +85,22 @@
                         <div class="form-group">
                             <label for="username" class="col-sm-12 control-label">Username</label>
                             <div class="col-sm-12">
-                                <input type="text" class="form-control" id="username" name="username" placeholder="Username" maxlength="100" required="">
+                                <input type="text" class="form-control" id="username" name="username"
+                                       placeholder="Username" maxlength="100" required="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="col-sm-12 control-label">Email</label> <!-- Add Email Input -->
                             <div class="col-sm-12">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" maxlength="150" required="">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                       maxlength="150" required="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="password" class="col-sm-12 control-label">Password</label>
                             <div class="col-sm-12">
-                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" minlength="6">
+                                <input type="password" class="form-control" id="password" name="password"
+                                       placeholder="Password" minlength="6">
                             </div>
                         </div>
                         <div class="form-group">

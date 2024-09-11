@@ -42,25 +42,25 @@
                         <div class="form-group">
                             <label for="nombre" class="col-sm-12 control-label">Nombre</label>
                             <div class="col-sm-12">
-                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" value="" maxlength="50" required="">
+                                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="nombre_abreviado" class="col-sm-12 control-label">Nombre Abreviado</label>
                             <div class="col-sm-12">
-                                <input type="text" class="form-control" id="nombre_abreviado" name="nombre_abreviado" placeholder="Nombre Abreviado" value="" maxlength="50" required="">
+                                <input type="text" class="form-control" id="nombre_abreviado" name="nombre_abreviado" placeholder="Nombre Abreviado" value="">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="inicial" class="col-sm-12 control-label">Inicial</label>
                             <div class="col-sm-12">
-                                <input type="text" class="form-control" id="inicial" name="inicial" placeholder="Inicial" value="" maxlength="50" required="">
+                                <input type="text" class="form-control" id="inicial" name="inicial" placeholder="Inicial" value="" >
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="estado" class="col-sm-12 control-label">Estado</label>
                             <div class="col-sm-12">
-                                <select class="form-control" id="estado" name="estado" required="">
+                                <select class="form-control" id="estado" name="estado">
                                     <option value="S">Activo</option>
                                     <option value="N">Inactivo</option>
                                 </select>

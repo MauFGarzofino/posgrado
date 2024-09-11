@@ -34,11 +34,9 @@
         Create or Update Record Table Code
         --------------------------------------------
         --------------------------------------------*/
-    $('#form').on('submit', function(e) { //use on if jQuery 1.7+
-        e.preventDefault();  //prevent form from submitting
+    $('#form').on('submit', function(e) {
+        e.preventDefault();
 
-
-        //$(this).html('Enviando...');
         $.ajax({
             data: $('#form').serialize(),
             url: URLindex,
@@ -50,12 +48,22 @@
                 table.draw();
             },
             error: function (data) {
+                $('.is-invalid').removeClass('is-invalid');
+                $('.invalid-feedback').remove();
                 console.log('Error:', data);
-                //$('#saveBtn').html('Guardar');
+
+                if (data.status === 422) {
+                    var errors = data.responseJSON.errors;
+
+                    $.each(errors, function (key, value) {
+                        var input = $('input[name=' + key + ']');
+                        input.addClass('is-invalid');
+                        input.after('<div class="invalid-feedback">' + value[0] + '</div>');
+                    });
+                }
             }
         });
     });
-
 
     /*------------------------------------------
         --------------------------------------------

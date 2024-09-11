@@ -8,10 +8,6 @@ document.addEventListener('DOMContentLoaded', function() {
             var subMenu = parentLi.querySelector('.menu-sub');
 
             if (subMenu) {
-                // Cierra todos los submenús excepto el clicado
-                closeAllSubMenus(parentLi);
-
-                // Alterna el despliegue del submenú clicado
                 if (subMenu.style.display === 'none' || subMenu.style.display === '') {
                     subMenu.style.display = 'block';
                 } else {
@@ -20,14 +16,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-
-    function closeAllSubMenus(exceptionLi) {
-        var allSubMenus = document.querySelectorAll('.menu-sub');
-
-        allSubMenus.forEach(function(subMenu) {
-            if (subMenu.closest('li.menu-item') !== exceptionLi) {
-                subMenu.style.display = 'none';
-            }
-        });
-    }
 });

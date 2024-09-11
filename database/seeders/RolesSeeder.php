@@ -19,6 +19,7 @@ class RolesSeeder extends Seeder
             ['nombre' => 'Supervisor', 'descripcion' => 'Supervisa las operaciones y tiene acceso a reportes', 'estado' => 'S'],
             ['nombre' => 'Analista', 'descripcion' => 'Realiza análisis de datos y tiene acceso a reportes', 'estado' => 'S'],
             ['nombre' => 'Invitado', 'descripcion' => 'Acceso limitado solo para ver contenido público', 'estado' => 'N'],
+            ['nombre' => 'Estudiante', 'descripcion' => 'Acceso limitado a vista de estudiante', 'estado' => 'S'],
         ]);
     }
 }

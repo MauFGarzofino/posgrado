@@ -62,3 +62,12 @@ a {
 a:hover {
     color: var(--accent-color);
 }
+
+.is-invalid {
+    border-color: #00ffb3 !important;
+    background-color: #ffe6e6 !important;
+}
+
+.invalid-feedback {
+    color: #ff0000;
+}

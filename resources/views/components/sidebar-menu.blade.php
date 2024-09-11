@@ -34,11 +34,22 @@
             <i class="ti menu-toggle-icon d-none d-xl-block ti-sm align-middle"></i>
             <i class="ti ti-x d-block d-xl-none ti-sm align-middle"></i>
         </a>
-    </div>
 
+    </div>
     <div class="menu-inner-shadow"></div>
 
     <ul class="menu-inner py-1">
         {!! session('data_sesion')['menu'] !!}
     </ul>
+
+    <li>
+        <a class="dropdown-item" href="{{ route('logout') }}"
+           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <i class="ti ti-logout me-2 ti-sm"></i>
+            <span class="align-middle">Log Out</span>
+        </a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+    </li>
 </aside>

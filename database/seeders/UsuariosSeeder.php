@@ -32,7 +32,7 @@ class UsuariosSeeder extends Seeder
             ],
             [
                 'id_persona' => 3,
-                'id_rol' => 4,
+                'id_rol' => 7,
                 'username' => 'diana.castillo',
                 'email' => 'diana.castillo@example.com',
                 'password' => Hash::make('password789'),

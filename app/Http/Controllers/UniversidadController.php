@@ -33,9 +33,9 @@ class UniversidadController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nombre' => 'required|max:150',
-            'nombre_abreviado' => 'max:100',
-            'inicial' => 'max:50',
+            'nombre' => 'required|max:150|regex:/^[a-zA-Z\s]+$/',
+            'nombre_abreviado' => 'required|max:100',
+            'inicial' => 'required|max:50',
             'estado' => 'required|in:S,N',
         ]);
 

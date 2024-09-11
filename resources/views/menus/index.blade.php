@@ -67,7 +67,15 @@
                                 <input type="text" class="form-control" id="icono" name="icono" placeholder="Ícono" maxlength="70">
                             </div>
                         </div>
-                        <!-- Otros campos... -->
+                        <div class="form-group">
+                            <label for="estado" class="col-sm-12 control-label">Estado</label>
+                            <div class="col-sm-12">
+                                <select class="form-control" id="estado" name="estado" required="">
+                                    <option value="S">Activo</option>
+                                    <option value="N">Inactivo</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-sm-12">
                             <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Guardar</button>
                         </div>
