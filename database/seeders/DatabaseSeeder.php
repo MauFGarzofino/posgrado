@@ -30,6 +30,19 @@ class DatabaseSeeder extends Seeder
             RolesMenusPrincipalesSeeder::class,
             PersonasSeeder::class,
             UsuariosSeeder::class,
+            PersonasDocentesSeeder::class,
+            ModalidadesSeeder::class,
+            CarrerasNivelesAcademicosSeeder::class,
+            PosgradoNivelesSeeder::class,
+            SedesSeeder::class,
+            CarrerasSeeder::class,
+            NivelesAcademicosSeeder::class,
+            PosgradoNivelesSeeder::class,
+            PosgradosProgramasSeeder::class,
+            PosgradoMateriasSeeder::class,
+            PosgradoTiposEvaluacionesNotasSeeder::class,
+            GestionesPeriodosSeeder::class,
+            PosgradoAsignacionesDocentesSeeder::class,
         ]);
     }
 }
