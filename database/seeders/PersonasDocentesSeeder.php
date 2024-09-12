@@ -31,7 +31,19 @@ class PersonasDocentesSeeder extends Seeder
                 'fecha_ingreso' => '2022-09-15',
                 'fecha' => now(),
                 'estado' => 'S',
-            ]
+            ],
+            [
+                'id_persona' => 4, // Relación con una persona existente
+                'fecha_ingreso' => '2021-03-12',
+                'fecha' => now(),
+                'estado' => 'S',
+            ],
+            [
+                'id_persona' => 5, // Relación con una persona existente
+                'fecha_ingreso' => '2022-11-07',
+                'fecha' => now(),
+                'estado' => 'S',
+            ],
         ]);
     }
 }

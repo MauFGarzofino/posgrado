@@ -34,6 +34,12 @@ class PersonasSeeder extends Seeder
                 'apellidos' => 'Lopez',
                 'imagen' => 'https://images.unsplash.com/photo-1420745981456-b95fe23f5753',
             ],
+            [
+                'ci' => '99887766',
+                'nombres' => 'Carlos',
+                'apellidos' => 'Sanchez',
+                'imagen' => 'https://images.unsplash.com/photo-1599566150163-29194dcaad36',
+            ]
         ]);
     }
 }

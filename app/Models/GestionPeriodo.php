@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class GestionesPeriodos extends Model
+class GestionPeriodo extends Model
 {
     use HasFactory;
 
@@ -13,9 +13,8 @@ class GestionesPeriodos extends Model
     protected $primaryKey = 'id_gestion_periodo';
 
     protected $fillable = [
-        'gestion',
-        'periodo',
-        'tipo',
-        'estado',
+        'nombre',
+        'fecha_inicio',
+        'fecha_fin',
     ];
 }

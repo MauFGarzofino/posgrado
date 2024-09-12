@@ -4,28 +4,6 @@
 
 @section('content')
     <div class="container">
-        <div class="card mt-5">
-            <div class="input-group">
-                <div class="form-outline" data-mdb-input-init>
-                    <input id="search-input" type="search" id="form1" class="form-control" />
-                    <label class="form-label" for="form1">Search</label>
-                </div>
-                <button id="search-button" type="button" class="btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-
-            <hr>
-            <div class="navbar-nav align-items-center">
-                <div class="nav-item navbar-search-wrapper mb-0">
-                    <a class="nav-item nav-link search-toggler d-flex align-items-center px-0" href="javascript:void(0);">
-                        <i class="ti ti-search ti-md me-2"></i>
-                        <span class="d-none d-md-inline-block text-muted">Search (Ctrl+/)</span>
-                    </a>
-                </div>
-            </div>
-
-
             <h3 class="card-header p-3">Usuarios</h3>
             <div class="card-body">
                 <div class="mb-3">

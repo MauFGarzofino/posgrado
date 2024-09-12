@@ -14,10 +14,11 @@ class SedesSeeder extends Seeder
     public function run(): void
     {
         DB::table('sedes')->insert([
-            ['nombre' => 'Local Potosí', 'estado' => 'S'],
-            ['nombre' => 'Uyuni', 'estado' => 'S'],
-            ['nombre' => 'Villazón', 'estado' => 'S'],
-            ['nombre' => 'Uncía', 'estado' => 'S'],
+            ['nombre' => 'Sucre Centro', 'estado' => 'S'],
+            ['nombre' => 'Yotala', 'estado' => 'S'],
+            ['nombre' => 'Tarabuco', 'estado' => 'S'],
+            ['nombre' => 'Monteagudo', 'estado' => 'S'],
+            ['nombre' => 'Villa Serrano', 'estado' => 'S'],
         ]);
     }
 

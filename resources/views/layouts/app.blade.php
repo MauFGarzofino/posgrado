@@ -16,7 +16,8 @@
     <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" crossorigin="anonymous"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="{{ asset('js/custom/searchProgramas.js') }}"></script>
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
@@ -73,11 +74,6 @@
             <nav
                 class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
                 id="layout-navbar">
-                <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
-                    <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                        <i class="ti ti-menu-2 ti-sm"></i>
-                    </a>
-                </div>
 
                 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                     <!-- Search -->
@@ -85,24 +81,14 @@
                         <div class="nav-item navbar-search-wrapper mb-0">
                             <a class="nav-item nav-link search-toggler d-flex align-items-center px-0" href="javascript:void(0);">
                                 <i class="ti ti-search ti-md me-2"></i>
-                                <span class="d-none d-md-inline-block text-muted">Search (Ctrl+/)</span>
+                                <span class="d-none d-md-inline-block text-muted">Search</span>
                             </a>
                         </div>
                     </div>
                     <!-- /Search -->
 
                     <ul class="navbar-nav flex-row align-items-center ms-auto">
-                        <!-- Language -->
-
-                        <!--/ Language -->
-
-                        <!-- Quick links  -->
-
-                        <!-- Quick links -->
-
-                        <!-- Notification -->
                         <x-notification-dropdown />
-                        <!--/ Notification -->
 
                         <!-- User -->
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
