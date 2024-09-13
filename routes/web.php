@@ -4,6 +4,7 @@ use App\Http\Controllers\AsignacionDocentesController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\ConfiguracionController;
+use App\Http\Controllers\DocenteController;
 use App\Http\Controllers\FacultadController;
 use App\Http\Controllers\GestionPeriodoController;
 use App\Http\Controllers\MenuController;
@@ -62,20 +63,26 @@ Route::middleware(['verify'])->group(function () {
         $searchTerm = $request->query('query');
         $materias = PosgradoMaterias::where('id_posgrado_programa', $programId)
             ->where('nombre', 'ILIKE', "%{$searchTerm}%")
-            ->with('docentes.persona')  // Relación con docentes
+            ->with('docentes.persona')
             ->get();
 
         return response()->json(['materias' => $materias]);
     });
 
     Route::get('/api/programas/{programa}/materias', function ($programa) {
-        $materias = \App\Models\PosgradoMaterias::with('docentes.persona') // Incluir la relación con personas
+        $materias = \App\Models\PosgradoMaterias::with('docentes.persona')
         ->where('id_posgrado_programa', $programa)
             ->get();
-
         return response()->json(['materias' => $materias]);
     });
-    Route::post('/asignar-docente', [AsignacionDocentesController::class, 'store'])->name('asignar.docente');
-    Route::get('/posgrados', [AsignacionDocentesController::class, 'index'])->name('posgrado.index');
+
+    Route::get('/api/programas', function () {
+        $programas = App\Models\PosgradosProgramas::all();
+        return response()->json(['programas' => $programas]);
+    });
+    Route::post('/asignar.docente', [AsignacionDocentesController::class, 'store'])->name('asignar.docente');
+    Route::delete('/api/materias/{materia}/docentes/{docente}', [DocenteController::class, 'desasignarDocente']);
+    Route::get('/posgrados', [PosgradoProgramasController::class, 'index'])->name('posgrado.index');
+    Route::post('/programas', [PosgradoProgramasController::class, 'store'])->name('posgrado.programas.store');
 });
 

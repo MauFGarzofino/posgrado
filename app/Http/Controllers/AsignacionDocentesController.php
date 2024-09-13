@@ -7,6 +7,7 @@ use App\Models\PersonaDocente;
 use App\Models\PosgradoAsignacionesDocentes;
 use App\Models\PosgradoMaterias;
 use App\Models\PosgradosProgramas;
+use App\Models\PosgradoTiposEvaluacionesNotas;
 use Illuminate\Http\Request;
 
 class AsignacionDocentesController extends Controller
@@ -25,8 +26,11 @@ class AsignacionDocentesController extends Controller
         // Obtener los periodos de gestión
         $gestionesPeriodos = GestionPeriodo::all();
 
-        // Retornar la vista con los programas, docentes y gestiones
-        return view('posgrado.index', compact('programas', 'docentes', 'gestionesPeriodos'));
+        // Obtener los tipos de evaluación
+        $tiposEvaluacion = PosgradoTiposEvaluacionesNotas::all();
+
+        // Retornar la vista con los programas, docentes, gestiones y tipos de evaluación
+        return view('posgrado.index', compact('programas', 'docentes', 'gestionesPeriodos', 'tiposEvaluacion'));
     }
 
     public function store(Request $request)
@@ -40,13 +44,12 @@ class AsignacionDocentesController extends Controller
             'cupo_maximo_estudiante' => 'required|integer|min:1',
         ]);
 
-        // Crear la asignación en la tabla posgrado_asignaciones_docentes
         PosgradoAsignacionesDocentes::create([
             'id_posgrado_materia' => $request->materia_id,
             'id_persona_docente' => $request->docente_id,
             'id_gestion_periodo' => $request->id_gestion_periodo,
             'id_posgrado_tipo_evaluacion_nota' => $request->id_posgrado_tipo_evaluacion_nota,
-            'tipo_calificacion' => 'N', // Esto puede ser dinámico si es necesario
+            'tipo_calificacion' => 'N',
             'grupo' => $request->grupo,
             'cupo_maximo_estudiante' => $request->cupo_maximo_estudiante,
             'estado' => 'S',
@@ -57,6 +60,6 @@ class AsignacionDocentesController extends Controller
             'updated_at' => now(),
         ]);
 
-        return redirect()->back()->with('success', 'Docente asignado con éxito.');
+        return response()->json(['success' => true]);
     }
 }

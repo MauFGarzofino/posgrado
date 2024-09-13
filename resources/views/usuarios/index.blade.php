@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-            <h3 class="card-header p-3">Usuarios</h3>
+            <h3 class="card-header p-3 mt-5">Usuarios</h3>
             <div class="card-body">
                 <div class="mb-3">
                     <button id="createNewRecord" class="btn btn-success">Añadir Usuario</button>
