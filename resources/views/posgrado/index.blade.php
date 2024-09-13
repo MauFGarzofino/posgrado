@@ -223,7 +223,10 @@
         var asignarDocenteUrl = "{{ route('asignar.docente') }}";
         var crearProgramaUrl = "{{ route('posgrado.programas.store') }}";
     </script>
-    <script src="{{ asset('js/custom/searchProgramas.js') }}"></script>
+    <script src="{{ asset('js/custom/utils.js') }}"></script>
+    <script src="{{ asset('js/custom/programas.js') }}"></script>
+    <script src="{{ asset('js/custom/materias.js') }}"></script>
+    <script src="{{ asset('js/custom/docentes.js') }}"></script>
 @endsection
 
 <style>
