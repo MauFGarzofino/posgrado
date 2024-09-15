@@ -69,7 +69,7 @@
                             <select class="form-control" id="docenteSelect" name="docente_id" required>
                                 @foreach($docentes as $docente)
                                     <option value="{{ $docente->id_persona_docente }}">
-                                        {{ $docente->persona->nombres }} {{ $docente->persona->apellidos }}
+                                        {{ $docente->persona->nombres }} {{ $docente->persona->paterno }} {{ $docente->persona->materno }}
                                     </option>
                                 @endforeach
                             </select>
@@ -223,6 +223,8 @@
     <script>
         var asignarDocenteUrl = "{{ route('asignar.docente') }}";
         var crearProgramaUrl = "{{ route('posgrado.programas.store') }}";
+        const defaultImageUrl = "{{ asset('fotografias/default.jpg') }}";
+        const baseImageUrl = "{{ asset('fotografias') }}";
     </script>
     <script src="{{ asset('js/custom/utils.js') }}"></script>
     <script src="{{ asset('js/custom/programas.js') }}"></script>

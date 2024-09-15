@@ -38,14 +38,6 @@ class UsuariosSeeder extends Seeder
                 'password' => Hash::make('password789'),
                 'estado' => 'S',
             ],
-            [
-                'id_persona' => 4,
-                'id_rol' => 3,
-                'username' => 'analopez',
-                'email' => 'ana.lopez@example.com',
-                'password' => Hash::make('password012'),
-                'estado' => 'S',
-            ],
         ]);
     }
 }

@@ -48,7 +48,7 @@ class UsuarioController extends Controller
             'id_persona' => 'required|exists:personas,id_persona',
             'id_rol' => 'required|exists:roles,id_rol',
             'username' => 'required|max:100|unique:usuarios,username',
-            'email' => 'required|max:150|unique:usuarios,email',
+            'email' => 'required|max:150|unique:usuarios,email', // El campo ahora es 'email'
             'password' => 'required|min:6',
             'estado' => 'required|in:S,N',
         ]);
@@ -67,7 +67,6 @@ class UsuarioController extends Controller
 
         return response()->json(['success' => 'Usuario guardado exitosamente.']);
     }
-
     public function edit($id_usuario)
     {
         $usuario = Usuario::find($id_usuario);

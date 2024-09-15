@@ -28,10 +28,12 @@ function renderMateriasList(materias) {
         if (materia.docentes.length > 0) {
             materia.docentes.forEach(docente => {
                 const persona = docente.persona;
+                const imageUrl = persona.fotografia ? `${baseImageUrl}/${persona.fotografia}` : defaultImageUrl;
+
                 docentesHtml += `
                     <span class="badge rounded-pill bg-light text-dark d-flex align-items-center p-2 me-2 mb-2">
-                        <img src="${persona.imagen || 'https://via.placeholder.com/24'}" class="rounded-circle me-2" alt="User Image" style="width: 24px; height: 24px;">
-                        ${persona.nombres} ${persona.apellidos}
+                        <img src="${imageUrl}" class="rounded-circle me-2" alt="User Image" style="width: 24px; height: 24px;">
+                        ${persona.nombres} ${persona.materno}
                         <button type="button" class="btn-close ms-2" aria-label="Close" data-docente-id="${docente.id_persona_docente}" data-materia-id="${materia.id_posgrado_materia}"></button>
                     </span>
                 `;

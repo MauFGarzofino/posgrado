@@ -93,7 +93,10 @@
                         <li class="nav-item navbar-dropdown dropdown-user dropdown">
                             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                 <div class="avatar avatar-online">
-                                    <img src="{{ session('data_sesion')['fotografia'] }}" alt class="h-auto rounded-circle" />
+                                    <img src="{{ asset('fotografias/' . session('data_sesion')['fotografia'] ?? 'default.jpg') }}"
+                                         alt="Foto de Usuario"
+                                         style="width: 100%; height: 2.5rem !important; object-fit: cover;"
+                                         class="rounded-circle" />
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
@@ -185,8 +188,9 @@
             <!-- Content wrapper -->
             <div class="content-wrapper">
                 <!-- Content -->
-                @yield('content')
-
+                <div class="content">
+                    @yield('content')
+                </div>
                 <!-- / Content -->
 
                 <!-- Footer -->

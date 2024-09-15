@@ -47,10 +47,14 @@ class ConfiguracionController extends Controller
             'id_universidad' => 'required|exists:universidades,id_universidad'
         ]);
 
-        Configuracion::create($request->all());
+        Configuracion::updateOrCreate(
+            ['id_configuracion' => $request->id_configuracion],
+            $request->all()
+        );
 
         return response()->json(['success' => 'Configuración guardada exitosamente.']);
     }
+
 
     public function show(string $id)
     {
@@ -73,6 +77,8 @@ class ConfiguracionController extends Controller
 
         $configuracion = Configuracion::findOrFail($id);
         $configuracion->update($request->all());
+
+        return response()->json(['success' => 'Configuración actualizada exitosamente.']);
     }
 
     public function destroy($id)

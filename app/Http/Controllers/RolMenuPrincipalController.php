@@ -63,9 +63,7 @@ class RolMenuPrincipalController extends Controller
     public function edit(string $id)
     {
         $rolMenuPrincipal = RolMenuPrincipal::findOrFail($id);
-        $roles = Rol::all();
-        $menusPrincipales = MenuPrincipal::all();
-        return response()->json(compact('rolMenuPrincipal', 'roles', 'menusPrincipales'));
+        return response()->json($rolMenuPrincipal);
     }
 
     public function update(Request $request, string $id)

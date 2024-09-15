@@ -7,9 +7,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         DB::statement("
@@ -35,10 +32,10 @@ return new class extends Migration
                 public.gestiones_periodos.gestion,
                 public.gestiones_periodos.periodo,
                 public.personas.id_persona,
-                public.personas.ci AS numero_identificacion_personal,
-                public.personas.apellidos,
+                public.personas.numero_identificacion_personal AS numero_identificacion_personal,
+                CONCAT(public.personas.paterno, ' ', COALESCE(public.personas.materno, '')) AS apellidos,
                 public.personas.nombres,
-                public.personas.imagen AS persona_imagen, -- Alias para evitar conflicto
+                public.personas.fotografia AS persona_imagen, -- Alias para evitar conflicto
                 public.posgrado_materias.id_posgrado_programa,
                 public.posgrado_materias.id_posgrado_nivel,
                 public.posgrado_materias.sigla,
@@ -78,9 +75,6 @@ return new class extends Migration
         ");
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         DB::statement("DROP VIEW IF EXISTS v_posgrado_asignaciones_docentes");

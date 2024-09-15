@@ -67,8 +67,7 @@ class FacultadController extends Controller
     public function edit(string $id)
     {
         $facultad = Facultad::findOrFail($id);
-        $areas = Area::all();
-        return response()->json(compact('facultad', 'areas'));
+        return response()->json($facultad);
     }
 
     public function update(Request $request, string $id)

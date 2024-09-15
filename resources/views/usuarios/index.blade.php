@@ -26,7 +26,6 @@
                 </table>
             </div>
         </div>
-    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="ajaxModel" aria-hidden="true">
@@ -68,12 +67,12 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="email" class="col-sm-12 control-label">Email</label> <!-- Add Email Input -->
+                            <label for="email" class="col-sm-12 control-label">Email</label>
                             <div class="col-sm-12">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email"
-                                       maxlength="150" required="">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" maxlength="150" required="">
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label for="password" class="col-sm-12 control-label">Password</label>
                             <div class="col-sm-12">

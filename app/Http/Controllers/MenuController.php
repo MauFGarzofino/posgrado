@@ -61,8 +61,7 @@ class MenuController extends Controller
     public function edit(string $id)
     {
         $menu = Menu::findOrFail($id);
-        $menusPrincipales = MenuPrincipal::all();
-        return response()->json(compact('menu', 'menusPrincipales'));
+        return response()->json($menu);  // Solo devuelve los datos del menú
     }
 
     public function update(Request $request, string $id)

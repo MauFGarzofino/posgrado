@@ -58,15 +58,8 @@ class MenuPrincipalController extends Controller
     public function edit(string $id)
     {
         $menuPrincipal = MenuPrincipal::findOrFail($id);
-        $modulos = Modulo::all();
-
-        // Asegúrate de incluir todos los campos necesarios en la respuesta
-        return response()->json([
-            'menuPrincipal' => $menuPrincipal,
-            'modulos' => $modulos
-        ]);
+        return response()->json($menuPrincipal);
     }
-
 
     public function update(Request $request, string $id)
     {

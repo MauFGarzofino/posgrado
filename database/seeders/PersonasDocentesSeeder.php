@@ -15,32 +15,20 @@ class PersonasDocentesSeeder extends Seeder
     {
         DB::table('personas_docentes')->insert([
             [
-                'id_persona' => 1, // Relación con una persona existente
+                'id_persona' => 1,
                 'fecha_ingreso' => '2020-01-10',
                 'fecha' => now(),
                 'estado' => 'S',
             ],
             [
-                'id_persona' => 2, // Relación con una persona existente
+                'id_persona' => 2,
                 'fecha_ingreso' => '2021-05-22',
                 'fecha' => now(),
                 'estado' => 'S',
             ],
             [
-                'id_persona' => 3, // Relación con una persona existente
+                'id_persona' => 3,
                 'fecha_ingreso' => '2022-09-15',
-                'fecha' => now(),
-                'estado' => 'S',
-            ],
-            [
-                'id_persona' => 4, // Relación con una persona existente
-                'fecha_ingreso' => '2021-03-12',
-                'fecha' => now(),
-                'estado' => 'S',
-            ],
-            [
-                'id_persona' => 5, // Relación con una persona existente
-                'fecha_ingreso' => '2022-11-07',
                 'fecha' => now(),
                 'estado' => 'S',
             ],
