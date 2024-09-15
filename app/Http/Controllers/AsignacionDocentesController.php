@@ -12,9 +12,6 @@ use Illuminate\Http\Request;
 
 class AsignacionDocentesController extends Controller
 {
-    /**
-     * Muestra la página de asignación de docentes a materias.
-     */
     public function index()
     {
         // Obtener todos los programas
@@ -44,6 +41,20 @@ class AsignacionDocentesController extends Controller
             'cupo_maximo_estudiante' => 'required|integer|min:1',
         ]);
 
+        // Verificar si el docente ya está asignado a la materia en este periodo de gestión
+        $existingAssignment = PosgradoAsignacionesDocentes::where('id_posgrado_materia', $request->materia_id)
+            ->where('id_persona_docente', $request->docente_id)
+            ->where('id_gestion_periodo', $request->id_gestion_periodo)
+            ->first();
+
+        if ($existingAssignment) {
+            return response()->json([
+                'success' => false,
+                'message' => 'El docente ya está asignado a esta materia en el periodo seleccionado.'
+            ], 400);
+        }
+
+        // Crear la nueva asignación si no existe una previa
         PosgradoAsignacionesDocentes::create([
             'id_posgrado_materia' => $request->materia_id,
             'id_persona_docente' => $request->docente_id,

@@ -1,17 +1,24 @@
 document.addEventListener('DOMContentLoaded', function () {
+    document.querySelector('.btn-light').addEventListener('click', function () {
+        $('#addProgramModal').modal('show');
+    });
+
+    // Función para cargar la lista de programas
     function loadPrograms() {
         $.get("/api/programas", function(data) {
             renderProgramsList(data.programas);
         });
     }
 
+    // Función para buscar programas según el término de búsqueda
     function searchPrograms(searchTerm) {
         fetch(`/api/programas/search?query=${searchTerm}`)
-    .then(response => response.json())
+            .then(response => response.json())
             .then(data => renderProgramsList(data))
             .catch(error => console.error('Error en la búsqueda de programas:', error));
     }
 
+    // Función para renderizar la lista de programas
     function renderProgramsList(programs) {
         const programasList = document.getElementById('programasList');
         programasList.innerHTML = '';
@@ -24,18 +31,42 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Event listeners para el buscador
+    // Función para crear un nuevo programa
+    function createProgram() {
+        $('#addProgramForm').off('submit').on('submit', function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                url: crearProgramaUrl,
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function(response) {
+                    if (response.success) {
+                        $('#addProgramForm').trigger('reset');
+                        $('#addProgramModal').modal('hide');
+                        loadPrograms();
+                        alert('Programa creado con éxito.');
+                    }
+                },
+                error: function(error) {
+                    console.error('Error al crear el programa:', error);
+                    alert('Error al crear el programa.');
+                }
+            });
+        });
+    }
+
+    // Event listeners para el buscador de programas
     document.getElementById('search-programas-input').addEventListener('input', applyDebounce((event) => {
         const searchTerm = event.target.value.trim();
         if (searchTerm.length > 0) {
-            console.log(searchTerm.length)
             searchPrograms(searchTerm);
-        }
-        else{
+        } else {
             loadPrograms();
         }
     }));
 
+    // Event listener para manejar clics en los programas
     const programasList = document.getElementById('programasList');
     programasList.addEventListener('click', function (event) {
         const clickedProgram = event.target;
@@ -46,5 +77,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    loadPrograms();  // Cargar todos los programas inicialmente
+    // Inicializar la creación de programas
+    createProgram();
+
+    // Cargar todos los programas inicialmente
+    loadPrograms();
 });

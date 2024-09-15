@@ -44,17 +44,30 @@ function addAssignModalEvents() {
 
 $('#asignarDocenteForm').off('submit').on('submit', function(e) {
     e.preventDefault();
+    $('#asignarDocenteError').addClass('d-none').text('');
+
     $.ajax({
         url: asignarDocenteUrl,
         type: 'POST',
         data: $(this).serialize(),
         success: function(response) {
             if (response.success) {
+                // Si la asignación fue exitosa, ocultar el modal y limpiar el formulario
                 $('#asignarDocenteForm').trigger('reset');
                 $('#asignarDocenteModal').modal('hide');
                 loadMaterias($('.program-item.active').data('program-id'));
                 alert('Docente asignado.');
             }
+        },
+        error: function(xhr) {
+            if (xhr.status === 400 && xhr.responseJSON) {
+                $('#asignarDocenteError').removeClass('d-none').text(xhr.responseJSON.message);
+            } else {
+                console.log('Error:', xhr);
+                $('#asignarDocenteError').removeClass('d-none').text('Hubo un error al intentar asignar el docente.');
+            }
         }
     });
 });
+
+

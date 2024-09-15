@@ -5,15 +5,15 @@
 @section('content')
     <div class="container-lg mt-5">
         <div class="row">
-            <!-- Left column: Postgrado -->
+            <!-- Columna Izquierda: Postgrado -->
             <div class="col-lg-6">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h2 class="text-dark">Postgrado</h2>
                 </div>
                 <div class="input-group mb-3">
-                    <!-- Search Input -->
+                    <!-- Search -->
                     <input type="text" id="search-programas-input" placeholder="Search" class="form-control mr-1">
-                    <!-- Add Program Button -->
+                    <!-- Add Program button -->
                     <button class="btn btn-light d-flex align-items-center">
                         <span>+</span> Add Program
                     </button>
@@ -28,13 +28,13 @@
                 </ul>
             </div>
 
-            <!-- Right column: Materias -->
+            <!-- Columna Derecha: Materias -->
             <div class="col-lg-6">
                 <div class="d-flex justify-content-between align-items-center mb-3">
                     <h2 class="text-dark">Materias</h2>
                 </div>
                 <div class="input-group mb-3">
-                    <!-- Search Input -->
+                    <!-- Search-->
                     <input type="text" id="search-materias-input" placeholder="Search" class="form-control mr-1">
                     <!-- Add Subject Button -->
                     <button class="btn btn-light d-flex align-items-center">
@@ -48,7 +48,6 @@
         </div>
     </div>
 
-
     <!-- Modal para asignar docente -->
     <div class="modal fade" id="asignarDocenteModal" tabindex="-1" aria-labelledby="asignarDocenteLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -59,6 +58,9 @@
                         <h5 class="modal-title" id="asignarDocenteLabel">Asignar Docente</h5>
                     </div>
                     <div class="modal-body">
+                        <!-- Mensaje de error -->
+                        <div id="asignarDocenteError" class="alert alert-danger d-none" role="alert"></div>
+
                         <input type="hidden" id="materiaId" name="materia_id">
 
                         <!-- Campo para seleccionar el docente -->
@@ -126,7 +128,6 @@
                     @csrf
                     <div class="modal-header">
                         <h5 class="modal-title" id="addProgramLabel">Añadir Nuevo Programa</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
                         <!-- Nombre del programa -->
