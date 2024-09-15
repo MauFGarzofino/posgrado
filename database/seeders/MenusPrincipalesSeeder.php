@@ -23,6 +23,7 @@ class MenusPrincipalesSeeder extends Seeder
             ['id_modulo' => 8, 'nombre' => 'Reportes', 'icono' => 'report-icon', 'orden' => 8, 'estado' => 'S'],
             ['id_modulo' => 9, 'nombre' => 'Soporte Técnico', 'icono' => 'support-icon', 'orden' => 9, 'estado' => 'S'],
             ['id_modulo' => 10, 'nombre' => 'Mantenimiento', 'icono' => 'maintenance-icon', 'orden' => 10, 'estado' => 'S'],
+            ['id_modulo' => 11, 'nombre' => 'Programas Posgrado', 'icono' => 'programas-icon', 'orden' => 11, 'estado' => 'S'],
         ]);
     }
 }

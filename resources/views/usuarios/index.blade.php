@@ -6,7 +6,7 @@
     <div class="container">
             <h3 class="card-header p-3 mt-5">Usuarios</h3>
             <div class="card-body">
-                <div class="mb-3">
+                <div class="mb-3 mt-2">
                     <button id="createNewRecord" class="btn btn-success">Añadir Usuario</button>
                 </div>
                 <table class="table table-bordered data-table">

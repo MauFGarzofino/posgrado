@@ -14,7 +14,7 @@
                     <!-- Search -->
                     <input type="text" id="search-programas-input" placeholder="Search" class="form-control mr-1">
                     <!-- Add Program button -->
-                    <button class="btn btn-light d-flex align-items-center">
+                    <button id="addProgramButton" class="btn btn-light d-flex align-items-center">
                         <span>+</span> Add Program
                     </button>
                 </div>
@@ -37,7 +37,7 @@
                     <!-- Search-->
                     <input type="text" id="search-materias-input" placeholder="Search" class="form-control mr-1">
                     <!-- Add Subject Button -->
-                    <button class="btn btn-light d-flex align-items-center">
+                    <button id="addSubjectButton" class="btn btn-light d-flex align-items-center">
                         <span>+</span> Add Subject
                     </button>
                 </div>
@@ -46,6 +46,7 @@
                 </ul>
             </div>
         </div>
+        <div id="messageContainer" class="position-fixed top-0 end-0 p-3" style="z-index: 1100;"></div>
     </div>
 
     <!-- Modal para asignar docente -->
@@ -220,11 +221,101 @@
             </div>
         </div>
     </div>
+    <!-- Modal para crear una nueva materia -->
+    <div class="modal fade" id="addMateriaModal" tabindex="-1" aria-labelledby="addMateriaModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addMateriaModalLabel">Añadir Materia</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addMateriaForm">
+                        <div class="form-group mb-3">
+                            <label for="programaMateria" class="form-label">Programa</label>
+                            <select class="form-select" id="programaMateria" name="id_posgrado_programa" required>
+                                <!-- Las opciones de programas se cargarán dinámicamente -->
+                            </select>
+                        </div>
+                        <!-- Nombre -->
+                        <div class="form-group mb-3">
+                            <label for="nombreMateria" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="nombreMateria" name="nombre" required>
+                        </div>
+
+                        <!-- Sigla -->
+                        <div class="form-group mb-3">
+                            <label for="siglaMateria" class="form-label">Sigla</label>
+                            <input type="text" class="form-control" id="siglaMateria" name="sigla" required>
+                        </div>
+
+                        <!-- Nivel -->
+                        <div class="form-group mb-3">
+                            <label for="nivelMateria" class="form-label">Nivel</label>
+                            <select class="form-select" id="nivelMateria" name="id_posgrado_nivel" required>
+                                @foreach($niveles as $nivel)
+                                    <option value="{{ $nivel->id_posgrado_nivel }}">{{ $nivel->nombre }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Horas Teóricas -->
+                        <div class="form-group mb-3">
+                            <label for="cantidadHoraTeorica" class="form-label">Horas Teóricas</label>
+                            <input type="number" class="form-control" id="cantidadHoraTeorica" name="cantidad_hora_teorica" value="0">
+                        </div>
+
+                        <!-- Horas Prácticas -->
+                        <div class="form-group mb-3">
+                            <label for="cantidadHoraPractica" class="form-label">Horas Prácticas</label>
+                            <input type="number" class="form-control" id="cantidadHoraPractica" name="cantidad_hora_practica" value="0">
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label for="imagenMateria" class="form-label">Imagen</label>
+                            <input type="file" class="form-control" id="imagenMateria" name="imagen" accept="image/*">
+                        </div>
+
+                        <!-- Estado -->
+                        <div class="form-group mb-3">
+                            <label for="estadoMateria" class="form-label">Estado</label>
+                            <select class="form-select" id="estadoMateria" name="estado" required>
+                                <option value="S">Activo</option>
+                                <option value="N">Inactivo</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Crear Materia</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal de confirmación -->
+    <div class="modal fade" id="confirmDesasignarDocenteModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirmModalLabel">Confirmar desasignación</h5>
+                </div>
+                <div class="modal-body">
+                    <!-- Docente y Materia -->
+                    ¿Estás seguro de que deseas desasignar a <strong id="docenteNombre"></strong> de la materia <strong id="materiaNombre"></strong>?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-danger" id="confirmDesasignarBtn">Desasignar</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
         var asignarDocenteUrl = "{{ route('asignar.docente') }}";
         var crearProgramaUrl = "{{ route('posgrado.programas.store') }}";
-        const defaultImageUrl = "{{ asset('fotografias/default.jpg') }}";
-        const baseImageUrl = "{{ asset('fotografias') }}";
+        var defaultImageUrl = "{{ asset('fotografias/default.jpg') }}";
+        var baseImageUrl = "{{ asset('fotografias') }}";
+        var baseSubjectImageUrl = "{{ asset('materias_imagenes') }}";
+        var defaultSubjectImageUrl = "{{ asset('materias_imagenes/default.png') }}";
     </script>
     <script src="{{ asset('js/custom/utils.js') }}"></script>
     <script src="{{ asset('js/custom/programas.js') }}"></script>

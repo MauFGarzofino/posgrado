@@ -27,7 +27,7 @@ class AsignacionDocentesController extends Controller
         $tiposEvaluacion = PosgradoTiposEvaluacionesNotas::all();
 
         // Retornar la vista con los programas, docentes, gestiones y tipos de evaluación
-        return view('posgrado.index', compact('programas', 'docentes', 'gestionesPeriodos', 'tiposEvaluacion'));
+        return view('asignacion-docentes.index', compact('programas', 'docentes', 'gestionesPeriodos', 'tiposEvaluacion'));
     }
 
     public function store(Request $request)

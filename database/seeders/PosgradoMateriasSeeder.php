@@ -17,7 +17,7 @@ class PosgradoMateriasSeeder extends Seeder
             // Program 1: Posgrado en Sistemas Avanzados
             [
                 'id_posgrado_programa' => 1,
-                'id_posgrado_nivel' => 1, // Nivel Básico
+                'id_posgrado_nivel' => 1,
                 'sigla' => 'SIS101',
                 'nombre' => 'Fundamentos de Sistemas',
                 'nivel_curso' => 1,

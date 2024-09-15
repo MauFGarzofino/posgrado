@@ -8,6 +8,7 @@ use App\Models\GestionPeriodo;
 use App\Models\Modalidad;
 use App\Models\NivelesAcademicos;
 use App\Models\PersonaDocente;
+use App\Models\PosgradoNivel;
 use App\Models\PosgradosProgramas;
 use App\Models\PosgradoTiposEvaluacionesNotas;
 use Illuminate\Http\Request;
@@ -37,8 +38,10 @@ use Illuminate\Http\Request;
             // Obtener los tipos de evaluación
             $tiposEvaluacion = PosgradoTiposEvaluacionesNotas::all();
 
+            $niveles = PosgradoNivel::all();
+
             // Pasar los datos a la vista
-            return view('posgrado.index', compact('programas', 'nivelesAcademicos', 'carreras', 'modalidades', 'docentes', 'gestionesPeriodos', 'tiposEvaluacion'));
+            return view('asignacion-docentes.index', compact('programas', 'nivelesAcademicos', 'carreras', 'modalidades', 'docentes', 'gestionesPeriodos', 'tiposEvaluacion', 'niveles'));
         }
 
         public function store(Request $request)

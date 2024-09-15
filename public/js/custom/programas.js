@@ -1,16 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
-    document.querySelector('.btn-light').addEventListener('click', function () {
+    document.getElementById('addProgramButton').addEventListener('click', function () {
         $('#addProgramModal').modal('show');
     });
 
-    // Función para cargar la lista de programas
+    // Cargar la lista de programas
     function loadPrograms() {
         $.get("/api/programas", function(data) {
             renderProgramsList(data.programas);
         });
     }
 
-    // Función para buscar programas según el término de búsqueda
+    // Buscar programas según el término de búsqueda
     function searchPrograms(searchTerm) {
         fetch(`/api/programas/search?query=${searchTerm}`)
             .then(response => response.json())
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .catch(error => console.error('Error en la búsqueda de programas:', error));
     }
 
-    // Función para renderizar la lista de programas
+    // Renderizar la lista de programas
     function renderProgramsList(programs) {
         const programasList = document.getElementById('programasList');
         programasList.innerHTML = '';
@@ -45,12 +45,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         $('#addProgramForm').trigger('reset');
                         $('#addProgramModal').modal('hide');
                         loadPrograms();
-                        alert('Programa creado con éxito.');
+                        showMessage('Programa creado con éxito.', 'success');
                     }
                 },
                 error: function(error) {
                     console.error('Error al crear el programa:', error);
-                    alert('Error al crear el programa.');
+                    showMessage('Error al crear el programa.', 'error');
                 }
             });
         });

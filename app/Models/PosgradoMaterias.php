@@ -47,10 +47,10 @@ class PosgradoMaterias extends Model
         return $this->hasManyThrough(
             PersonaDocente::class,
             PosgradoAsignacionesDocentes::class,
-            'id_posgrado_materia', // Foreign key on PosgradoAsignacionesDocentes table
-            'id_persona_docente', // Foreign key on PersonaDocente table
-            'id_posgrado_materia', // Local key on PosgradoMaterias table
-            'id_persona_docente'  // Local key on PosgradoAsignacionesDocentes table
+            'id_posgrado_materia',
+            'id_persona_docente',
+            'id_posgrado_materia',
+            'id_persona_docente'
         );
     }
 }

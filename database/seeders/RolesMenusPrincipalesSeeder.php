@@ -20,6 +20,7 @@ class RolesMenusPrincipalesSeeder extends Seeder
             ['id_rol' => 1, 'id_menu_principal' => 5, 'estado' => 'S'], // Admin - Seguridad
             ['id_rol' => 1, 'id_menu_principal' => 6, 'estado' => 'S'], // Admin - Seguridad
             ['id_rol' => 1, 'id_menu_principal' => 8, 'estado' => 'S'], // Admin - Seguridad
+            ['id_rol' => 1, 'id_menu_principal' => 11, 'estado' => 'S'], // Asignación Roles
             ['id_rol' => 2, 'id_menu_principal' => 4, 'estado' => 'S'], // Editor - Gestión Académica
             ['id_rol' => 2, 'id_menu_principal' => 5, 'estado' => 'S'], // Editor - Gestión Financiera
             ['id_rol' => 3, 'id_menu_principal' => 6, 'estado' => 'S'], // Usuario - Gestión de Personal
