@@ -23,6 +23,7 @@ class ModulosSeeder extends Seeder
             ['nombre' => 'Módulo de Reportes', 'estado' => 'S'],
             ['nombre' => 'Módulo de Soporte Técnico', 'estado' => 'S'],
             ['nombre' => 'Módulo de Mantenimiento', 'estado' => 'S'],
+            ['nombre' => 'Módulo de Docentes', 'estado' => 'S'],
         ]);
     }
 }

@@ -7,7 +7,7 @@
         <div class="card mt-5">
             <h3 class="card-header p-3">Facultades</h3>
             <div class="card-body">
-                <div class="mb-3">
+                <div class="mb-3 mt-2">
                     <button id="createNewRecord" class="btn btn-success">Añadir Facultad</button>
                 </div>
                 <table class="table table-bordered data-table">

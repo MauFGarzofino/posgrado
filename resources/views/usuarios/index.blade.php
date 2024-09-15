@@ -4,31 +4,9 @@
 
 @section('content')
     <div class="container">
-        <div class="card mt-5">
-            <div class="input-group">
-                <div class="form-outline" data-mdb-input-init>
-                    <input id="search-input" type="search" id="form1" class="form-control" />
-                    <label class="form-label" for="form1">Search</label>
-                </div>
-                <button id="search-button" type="button" class="btn btn-primary">
-                    <i class="fas fa-search"></i>
-                </button>
-            </div>
-
-            <hr>
-            <div class="navbar-nav align-items-center">
-                <div class="nav-item navbar-search-wrapper mb-0">
-                    <a class="nav-item nav-link search-toggler d-flex align-items-center px-0" href="javascript:void(0);">
-                        <i class="ti ti-search ti-md me-2"></i>
-                        <span class="d-none d-md-inline-block text-muted">Search (Ctrl+/)</span>
-                    </a>
-                </div>
-            </div>
-
-
-            <h3 class="card-header p-3">Usuarios</h3>
+            <h3 class="card-header p-3 mt-5">Usuarios</h3>
             <div class="card-body">
-                <div class="mb-3">
+                <div class="mb-3 mt-2">
                     <button id="createNewRecord" class="btn btn-success">Añadir Usuario</button>
                 </div>
                 <table class="table table-bordered data-table">
@@ -48,7 +26,6 @@
                 </table>
             </div>
         </div>
-    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="ajaxModel" aria-hidden="true">
@@ -90,12 +67,12 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="email" class="col-sm-12 control-label">Email</label> <!-- Add Email Input -->
+                            <label for="email" class="col-sm-12 control-label">Email</label>
                             <div class="col-sm-12">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email"
-                                       maxlength="150" required="">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email" maxlength="150" required="">
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label for="password" class="col-sm-12 control-label">Password</label>
                             <div class="col-sm-12">

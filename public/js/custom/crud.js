@@ -37,15 +37,20 @@
     $('#form').on('submit', function(e) {
         e.preventDefault();
 
+        // Crear una instancia de FormData para manejar el envío de archivos
+        var formData = new FormData(this);
+
         $.ajax({
-            data: $('#form').serialize(),
+            data: formData, // Utilizamos FormData
             url: URLindex,
             type: "POST",
             dataType: 'json',
+            contentType: false, // Imprescindible para enviar archivos
+            processData: false, // Evita que jQuery procese los datos
             success: function (data) {
                 $('#form').trigger("reset");
                 $('#ajaxModel').modal('hide');
-                table.draw();
+                table.draw(); // Recarga la tabla
             },
             error: function (data) {
                 $('.is-invalid').removeClass('is-invalid');
@@ -109,6 +114,9 @@
             $.ajax({
                 type: "DELETE",
                 url: URLindex + '/'+table_id,
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content') // Agregamos el token CSRF manualmente
+                },
                 success: function (data) {
                     table.draw();
                 },

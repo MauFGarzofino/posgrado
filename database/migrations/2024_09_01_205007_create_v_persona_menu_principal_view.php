@@ -12,8 +12,8 @@ return new class extends Migration
             SELECT
                 personas.id_persona,
                 personas.nombres,
-                personas.apellidos,
-                personas.imagen AS fotografia,
+                CONCAT(personas.paterno, ' ', COALESCE(personas.materno, '')) AS apellidos,
+                personas.fotografia,
                 usuarios.username AS usuario,
                 usuarios.password,
                 usuarios.email,
@@ -22,7 +22,7 @@ return new class extends Migration
             FROM
                 usuarios
             JOIN personas ON personas.id_persona = usuarios.id_persona
-            JOIN roles ON roles.id_rol = usuarios.id_rol
+            JOIN roles ON roles.id_rol = usuarios.id_rol;
         ");
     }
 
