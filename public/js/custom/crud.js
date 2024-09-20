@@ -41,23 +41,24 @@
         var formData = new FormData(this);
 
         $.ajax({
-            data: formData, // Utilizamos FormData
+            data: formData,
             url: URLindex,
             type: "POST",
             dataType: 'json',
-            contentType: false, // Imprescindible para enviar archivos
+            contentType: false,
             processData: false, // Evita que jQuery procese los datos
             success: function (data) {
                 $('#form').trigger("reset");
                 $('#ajaxModel').modal('hide');
-                table.draw(); // Recarga la tabla
+                table.draw();
             },
             error: function (data) {
                 $('.is-invalid').removeClass('is-invalid');
                 $('.invalid-feedback').remove();
                 console.log('Error:', data);
 
-                if (data.status === 422) {
+                // Si hay errores en la respuesta JSON
+                if (data.responseJSON && data.responseJSON.errors) {
                     var errors = data.responseJSON.errors;
 
                     $.each(errors, function (key, value) {
@@ -65,6 +66,9 @@
                         input.addClass('is-invalid');
                         input.after('<div class="invalid-feedback">' + value[0] + '</div>');
                     });
+                } else {
+                    // error genérico
+                    $('#formError').text('Hubo un error al procesar el formulario. Inténtalo de nuevo.');
                 }
             }
         });

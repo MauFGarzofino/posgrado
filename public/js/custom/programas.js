@@ -45,12 +45,12 @@ document.addEventListener('DOMContentLoaded', function () {
                         $('#addProgramForm').trigger('reset');
                         $('#addProgramModal').modal('hide');
                         loadPrograms();
-                        showMessage('Programa creado con éxito.', 'success');
+                        showMessage('Programa creado con éxito.', 'success', 'Creación Exitosa');
                     }
                 },
                 error: function(error) {
                     console.error('Error al crear el programa:', error);
-                    showMessage('Error al crear el programa.', 'error');
+                    showMessage('Error al crear el programa.', 'error', 'Error de Creación');
                 }
             });
         });
@@ -73,13 +73,11 @@ document.addEventListener('DOMContentLoaded', function () {
         if (clickedProgram.classList.contains('program-item')) {
             document.querySelectorAll('.program-item').forEach(item => item.classList.remove('active'));
             clickedProgram.classList.add('active');
-            loadMaterias(clickedProgram.dataset.programId);  // Cargar y mostrar las materias
+            loadMaterias(clickedProgram.dataset.programId);
         }
     });
 
-    // Inicializar la creación de programas
     createProgram();
 
-    // Cargar todos los programas inicialmente
     loadPrograms();
 });

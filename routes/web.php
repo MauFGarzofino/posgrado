@@ -51,7 +51,12 @@ Route::middleware(['verify'])->group(function () {
 
     // Obtener las materias de un programa específico
     Route::get('/api/programas/{programa}/materias', function ($programa) {
-        $materias = PosgradoMaterias::where('id_posgrado_programa', $programa)->get();
+        $materias = \App\Models\PosgradoMaterias::with([
+            'asignaciones.docente.persona'  // Cargar asignaciones con el docente y la persona
+        ])
+            ->where('id_posgrado_programa', $programa)
+            ->get();
+
         return response()->json(['materias' => $materias]);
     });
 
@@ -72,31 +77,18 @@ Route::middleware(['verify'])->group(function () {
         return response()->json(['materias' => $materias]);
     });
 
-    // Obtener las materias de un programa con los docentes
-    Route::get('/api/programas/{programa}/materias', function ($programa) {
-        $materias = \App\Models\PosgradoMaterias::with('docentes.persona')
-            ->where('id_posgrado_programa', $programa)
-            ->get();
-        return response()->json(['materias' => $materias]);
-    });
-
     // Obtener todos los programas
     Route::get('/api/programas', function () {
         $programas = App\Models\PosgradosProgramas::all();
         return response()->json(['programas' => $programas]);
     });
 
-    /*
-    |--------------------------------------------------------------------------
-    | Rutas personalizadas (Custom Routes)
-    */
     // Asignar docente a una materia
     Route::post('/asignar.docente', [AsignacionDocentesController::class, 'store'])->name('asignar.docente');
 
     // Desasignar docente de una materia
     Route::delete('/api/materias/{materia}/docentes/{docente}', [DocenteController::class, 'desasignarDocente']);
 
-    // Rutas relacionadas con programas de posgrado
     //// Ruta para la asignación de docentes a materias
     Route::get('/asignacion-docentes', [PosgradoProgramasController::class, 'index'])->name('posgrado.index');
     Route::post('/programas', [PosgradoProgramasController::class, 'store'])->name('posgrado.programas.store');

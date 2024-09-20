@@ -176,7 +176,7 @@
                         <!-- Fechas -->
                         <div class="mb-3">
                             <label for="fechaInicio" class="form-label">Fecha de Inicio</label>
-                            <input type="date" class="form-control" id="fechaInicio" name="fecha_inicio" value="{{ date('Y-m-d') }}" required>
+                            <input type="date" class="form-control" id="fechaInicio" name="fecha_inicio" required>
                         </div>
 
                         <div class="mb-3">
@@ -234,7 +234,7 @@
                         <div class="form-group mb-3">
                             <label for="programaMateria" class="form-label">Programa</label>
                             <select class="form-select" id="programaMateria" name="id_posgrado_programa" required>
-                                <!-- Las opciones de programas se cargarán dinámicamente -->
+                                <!-- Las opciones de programas  -->
                             </select>
                         </div>
                         <!-- Nombre -->

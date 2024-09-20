@@ -48,10 +48,9 @@ class AuthController extends Controller
 
             Session::put('data_sesion', $data_session);
 
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/dashboard')->with('success', 'Inicio de sesión exitoso.');
         }
-
-        return redirect()->back()->withErrors(['email' => 'Credenciales inválidas']);
+        return redirect()->back()->with('error', 'Credenciales inválidas, por favor verifica tu información.');
     }
 
     public function dashboard()

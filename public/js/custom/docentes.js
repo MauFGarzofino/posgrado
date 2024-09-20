@@ -1,5 +1,3 @@
-// docentes.js
-
 function addDesassignEvents() {
     document.querySelectorAll('.btn-close').forEach(button => {
         button.addEventListener('click', function () {
@@ -7,7 +5,7 @@ function addDesassignEvents() {
             const materiaId = button.getAttribute('data-materia-id');
             const docenteNombre = button.parentElement.querySelector('img').nextSibling.textContent.trim(); // Obtener el nombre del docente
             const materiaNombre = button.closest('li').querySelector('h5').textContent.trim(); // Obtener el nombre de la materia
-            const activeProgramId = document.querySelector('.program-item.active')?.dataset?.programId; // Asegurarse de usar el programa activo
+            const activeProgramId = document.querySelector('.program-item.active')?.dataset?.programId;
 
             if (!activeProgramId) {
                 console.error("No hay programa activo seleccionado.");
@@ -29,20 +27,19 @@ function addDesassignEvents() {
                     headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') }
                 })
                     .then(response => {
-                        confirmModal.hide(); // Cerrar el modal después de la acción
+                        confirmModal.hide();
                         if (response.ok) {
                             loadMaterias(activeProgramId);
-                            showMessage('Docente desasignado con éxito.', 'success'); // Usando showMessage de utils.js
+                            showMessage('Docente desasignado con éxito.', 'success', 'Desasignación Exitosa');
                         } else {
-                            showMessage('Error al desasignar el docente.', 'error'); // Usando showMessage de utils.js
+                            showMessage('Error al desasignar el docente.', 'error', 'Error de Desasignación');
                         }
                     })
                     .catch(error => {
-                        confirmModal.hide(); // Cerrar el modal en caso de error
-                        console.error('Error al desasignar el docente:', error);
-                        showMessage('Error al desasignar el docente.', 'error'); // Usando showMessage de utils.js
+                        confirmModal.hide();
+                        showMessage('Error al desasignar el docente.', 'error', 'Error de Desasignación');
                     });
-            }, { once: true }); // Asegurarse de que este evento se dispare solo una vez
+            }, { once: true });
         });
     });
 }
@@ -67,11 +64,11 @@ $('#asignarDocenteForm').off('submit').on('submit', function(e) {
         data: $(this).serialize(),
         success: function(response) {
             if (response.success) {
-                // Si la asignación fue exitosa, ocultar el modal y limpiar el formulario
+                // Ocultar el modal y limpiar el formulario
                 $('#asignarDocenteForm').trigger('reset');
                 $('#asignarDocenteModal').modal('hide');
                 loadMaterias($('.program-item.active').data('program-id'));
-                showMessage('Docente asignado con éxito.', 'success'); // Mensaje de éxito
+                showMessage('Docente asignado con éxito.', 'success', 'Asignación Exitosa');
             }
         },
         error: function(xhr) {
@@ -80,7 +77,7 @@ $('#asignarDocenteForm').off('submit').on('submit', function(e) {
             } else {
                 console.log('Error:', xhr);
                 $('#asignarDocenteError').removeClass('d-none').text('Hubo un error al intentar asignar el docente.');
-                showMessage('Error al asignar el docente.', 'error'); // Mensaje de error
+                showMessage('Error al asignar el docente.', 'error', 'Asignación Fallida');
             }
         }
     });

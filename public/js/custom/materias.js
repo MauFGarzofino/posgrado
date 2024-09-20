@@ -2,10 +2,8 @@ document.getElementById('addSubjectButton').addEventListener('click', function (
     const selectPrograma = document.getElementById('programaMateria');
     const activeProgramId = document.querySelector('.program-item.active')?.dataset?.programId;
 
-    // Limpiar las opciones del select de programas
     selectPrograma.innerHTML = '';
 
-    // Si hay un programa activo, cargarlo como opción preseleccionada
     if (activeProgramId) {
         const activeProgramName = document.querySelector('.program-item.active').textContent;
         const option = document.createElement('option');
@@ -24,7 +22,7 @@ document.getElementById('addSubjectButton').addEventListener('click', function (
                 option.value = programa.id_posgrado_programa;
                 option.textContent = programa.nombre;
 
-                // Si no hay programa activo, seleccionar el primero
+                // Si no hay programa activo
                 if (!activeProgramId && selectPrograma.options.length === 0) {
                     option.selected = true;
                 }
@@ -41,7 +39,6 @@ document.getElementById('addSubjectButton').addEventListener('click', function (
 });
 
 // Función para enviar el formulario de creación de materia
-// Función para enviar el formulario de creación de materia
 document.getElementById('addMateriaForm').addEventListener('submit', function (e) {
     e.preventDefault();
 
@@ -57,23 +54,23 @@ document.getElementById('addMateriaForm').addEventListener('submit', function (e
     // Añadir la imagen al FormData si se ha seleccionado
     const imagenInput = document.getElementById('imagenMateria');
     if (imagenInput.files.length > 0) {
-        formData.append('imagen', imagenInput.files[0]); // Agregar la imagen
+        formData.append('imagen', imagenInput.files[0]);
     }
 
     $.ajax({
         url: '/api/materias',
         type: 'POST',
-        data: formData, // Enviar FormData
-        contentType: false, // Evitar que jQuery procese los datos
-        processData: false, // Evitar que jQuery los transforme en una cadena de consulta
+        data: formData,
+        contentType: false,
+        processData: false,
         success: function(response) {
             $('#addMateriaModal').modal('hide');
             loadMaterias(formData.get('id_posgrado_programa')); // Cargar las materias del programa
-            showMessage('Materia creada con éxito.', 'success');
+            showMessage('Materia creada con éxito.', 'success', 'Creación Exitosa');
         },
         error: function(xhr) {
             console.error('Error al crear la materia:', xhr);
-            showMessage('Error al crear la materia.', 'error');
+            showMessage('Error al crear la materia.', 'error','Error de Creación');
         }
     });
 });
@@ -94,7 +91,6 @@ function searchMaterias(searchTerm) {
         .catch(error => console.error('Error en la búsqueda de materias:', error));
 }
 
-
 // Función para renderizar la lista de materias
 function renderMateriasList(materias) {
     const materiasList = document.getElementById('materiasList');
@@ -105,18 +101,19 @@ function renderMateriasList(materias) {
         listItem.classList.add('list-group-item', 'bg-white', 'mb-2');
 
         let docentesHtml = '';
-        if (materia.docentes.length > 0) {
-            materia.docentes.forEach(docente => {
-                const persona = docente.persona;
+        if (Array.isArray(materia.asignaciones) && materia.asignaciones.length > 0) {
+            materia.asignaciones.forEach(asignacion => {
+                const persona = asignacion.docente.persona;
+                const grupo = asignacion.grupo;
 
                 const imageUrl = persona.fotografia ? `${baseImageUrl}/${persona.fotografia}` : defaultImageUrl;
                 docentesHtml += `
-                    <span class="badge rounded-pill bg-light text-dark d-flex align-items-center p-2 me-2 mb-2">
-                        <img src="${imageUrl}" class="rounded-circle me-2" alt="User Image" style="width: 24px; height: 24px;">
-                        ${persona.nombres} ${persona.materno}
-                        <button type="button" class="btn-close ms-2" aria-label="Close" data-docente-id="${docente.id_persona_docente}" data-materia-id="${materia.id_posgrado_materia}"></button>
-                    </span>
-                `;
+            <span class="badge rounded-pill bg-light text-dark d-flex align-items-center p-2 me-2 mb-2">
+                <img src="${imageUrl}" class="rounded-circle me-2" alt="User Image" style="width: 24px; height: 24px;">
+                ${persona.nombres} ${persona.materno} - <strong> G${grupo}</strong>
+                <button type="button" class="btn-close ms-2" aria-label="Close" data-docente-id="${asignacion.id_persona_docente}" data-materia-id="${materia.id_posgrado_materia}"></button>
+            </span>
+        `;
             });
         }
 
@@ -131,7 +128,7 @@ function renderMateriasList(materias) {
             </div>
             <div class="d-flex flex-wrap align-items-center mt-2">
                 ${docentesHtml}
-                <button type="button" class="btn btn-light rounded-circle d-flex justify-content-center align-items-center mb-2 ml-1 open-assign-modal" data-materia-id="${materia.id_posgrado_materia}" style="width: 26px; height: 26px">
+                <button type="button" class="btn btn-add rounded-circle d-flex justify-content-center align-items-center mb-2 ml-1 open-assign-modal" data-materia-id="${materia.id_posgrado_materia}" style="width: 26px; height: 26px">
                     <span style="font-size: 15px; font-weight: bold;">+</span>
                 </button>
             </div>
@@ -140,7 +137,7 @@ function renderMateriasList(materias) {
         materiasList.appendChild(listItem);
     });
 
-    // Agregar eventos a los botones de asignación y desasignación
+    // Agregar eventos a los botones
     addAssignModalEvents();
     addDesassignEvents();
 }

@@ -7,59 +7,78 @@
     data-assets-path="../../assets/"
     data-template="vertical-menu-template-no-customizer">
 <head>
-    <title>@yield('title', 'Laravel DataTable')</title>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisar Scripts</title>
+
+    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../../assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}">
 
     <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700&display=swap" rel="stylesheet">
 
-    <!-- Icons -->
-    <link rel="stylesheet" href="../../assets/vendor/fonts/fontawesome.css" />
-    <link rel="stylesheet" href="../../assets/vendor/fonts/tabler-icons.css" />
-    <link rel="stylesheet" href="../../assets/vendor/fonts/flag-icons.css" />
+    <!-- Toastr (desde carpeta local) -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/toastr/toastr.css') }}">
 
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/core.css" />
-    <link rel="stylesheet" href="../../assets/vendor/css/rtl/theme-default.css" />
-    <link rel="stylesheet" href="../../assets/css/demo.css" />
+    <!-- Bootstrap y DataTables desde CDNs -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css">
 
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../../assets/vendor/libs/node-waves/node-waves.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/typeahead-js/typeahead.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css" />
-    <link rel="stylesheet" href="../../assets/vendor/libs/apex-charts/apex-charts.css" />
-
-    <!-- Existing Bootstrap and DataTables CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.datatables.net/1.11.4/css/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-    <!-- Custom CSS -->
+    <!-- Otros estilos de tu proyecto -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/tabler-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/flag-icons.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/core.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/rtl/theme-default.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/node-waves/node-waves.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/typeahead-js/typeahead.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-bs5/datatables.bootstrap5.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/apex-charts/apex-charts.css') }}">
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
-
-    <!-- Helpers -->
-    <script src="../../assets/vendor/js/helpers.js"></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
+
+<!-- Contenido de tu página -->
+
+<!-- jQuery (primero porque otros scripts dependen de él) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+<!-- Bootstrap (desde CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+<!-- Popper (necesario para Bootstrap 4) -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+
+<!-- Lodash (desde CDN) -->
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+
+<!-- DataTables y Bootstrap 5 (desde CDN) -->
+<script src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.4/js/dataTables.bootstrap5.min.js"></script>
+
+<!-- Toastr (local) -->
+<script src="{{ asset('assets/vendor/libs/toastr/toastr.js') }}"></script>
+
+<!-- Otros scripts locales -->
+<script src="{{ asset('assets/vendor/libs/node-waves/node-waves.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/hammer/hammer.js') }}"></script>
+<script src="{{ asset('assets/vendor/libs/typeahead-js/typeahead.js') }}"></script>
+<script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
+<script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+<script src="{{ asset('assets/js/main.js') }}"></script>
+<script src="{{ asset('assets/js/ui-toasts.js') }}"></script>
+
+</body>
 <!-- Layout wrapper -->
 <div class="layout-wrapper layout-content-navbar">
     <div class="layout-container">
@@ -105,12 +124,15 @@
                                         <div class="d-flex">
                                             <div class="flex-shrink-0 me-3">
                                                 <div class="avatar avatar-online">
-                                                    <img src="../../assets/img/avatars/1.png" alt class="h-auto rounded-circle" />
+                                                    <img src="{{ asset('fotografias/' . session('data_sesion')['fotografia'] ?? 'default.jpg') }}"
+                                                         alt="Foto de Usuario"
+                                                         style="width: 100%; height: 2.5rem !important; object-fit: cover;"
+                                                         class="rounded-circle" />
                                                 </div>
                                             </div>
                                             <div class="flex-grow-1">
-                                                <span class="fw-medium d-block">John Doe</span>
-                                                <small class="text-muted">Admin</small>
+                                                <span class="fw-medium d-block">{{ session('data_sesion')['nombres'] }}</span>
+                                                <small class="text-muted">{{ session('data_sesion')['nombre_rol'] }}</small>
                                             </div>
                                         </div>
                                     </a>
@@ -215,39 +237,63 @@
 <!-- / Layout wrapper -->
 
 <!-- Core JS -->
-<!-- build:js assets/vendor/js/core.js -->
+    <!-- build:js assets/vendor/js/core.js -->
 
-<script src="../../assets/vendor/libs/jquery/jquery.js"></script>
-<script src="../../assets/vendor/libs/popper/popper.js"></script>
-<script src="../../assets/vendor/js/bootstrap.js"></script>
-<script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
-<script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-<script src="../../assets/vendor/libs/hammer/hammer.js"></script>
-<script src="../../assets/vendor/libs/i18n/i18n.js"></script>
-<script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
-<script src="../../assets/vendor/js/menu.js"></script>
+    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../../assets/vendor/js/bootstrap.js"></script>
+    <script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
+    <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
+    <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
+    <script src="../../assets/vendor/js/menu.js"></script>
 
-<!-- endbuild -->
+    <!-- endbuild -->
 
-<!-- Vendors JS -->
-<script src="{{ asset('assets/js/menu.js') }}"></script>
-<script src="../../assets/vendor/libs/moment/moment.js"></script>
-<script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-<script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
-<!-- build:js assets/vendor/js/core.js -->
+    <link rel="stylesheet" href="../../assets/vendor/libs/toastr/toastr.css" />
+    <script src="../../assets/vendor/libs/toastr/toastr.js"></script>
 
-<script src="../../assets/vendor/libs/jquery/jquery.js"></script>
-<script src="../../assets/vendor/libs/popper/popper.js"></script>
-<script src="../../assets/vendor/js/bootstrap.js"></script>
-<script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
-<script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
-<script src="../../assets/vendor/libs/hammer/hammer.js"></script>
-<script src="../../assets/vendor/libs/i18n/i18n.js"></script>
-<script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
-<script src="../../assets/vendor/js/main.js"></script><!-- Main JS -->
-<script src="../../assets/js/main.js"></script>
 
-<!-- Page JS -->
-<script src="../../assets/js/app-academy-dashboard.js"></script>
-</body>
+    <!-- Vendors JS -->
+    <script src="{{ asset('assets/js/menu.js') }}"></script>
+    <script src="../../assets/vendor/libs/moment/moment.js"></script>
+    <script src="../../assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
+    <script src="../../assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <!-- build:js assets/vendor/js/core.js -->
+
+    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../../assets/vendor/js/bootstrap.js"></script>
+    <script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
+    <script src="../../assets/vendor/libs/i18n/i18n.js"></script>
+    <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
+    <script src="../../assets/vendor/js/main.js"></script><!-- Main JS -->
+    <script src="../../assets/js/main.js"></script>
+
+
+    <!-- Page JS -->
+
+    <script src="../../assets/js/app-academy-dashboard.js"></script>
+    <script src="../../assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="../../assets/vendor/libs/popper/popper.js"></script>
+    <script src="../../assets/vendor/js/bootstrap.js"></script>
+    <script src="../../assets/vendor/libs/node-waves/node-waves.js"></script>
+    <script src="../../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="../../assets/vendor/libs/hammer/hammer.js"></script>
+    <script src="../../assets/vendor/libs/typeahead-js/typeahead.js"></script>
+    <script src="../../assets/vendor/js/menu.js"></script>
+
+    <!-- endbuild -->
+
+    <!-- Vendors JS -->
+    <script src="../../assets/vendor/libs/toastr/toastr.js"></script>
+
+    <!-- Main JS -->
+    <script src="../../assets/js/main.js"></script>
+
+    <!-- Page JS -->
+    <script src="../../assets/js/ui-toasts.js"></script>
 </html>

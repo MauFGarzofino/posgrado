@@ -16,7 +16,7 @@ class PosgradoMateriasController extends Controller
             'nombre' => 'required|max:255',
             'sigla' => 'required|max:10',
             'estado' => 'required|in:S,N',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048' // Validación de la imagen
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         // Manejo de la imagen
@@ -42,7 +42,7 @@ class PosgradoMateriasController extends Controller
 
     public function update(Request $request, $id_materia)
     {
-        // Validar los datos recibidos, incluyendo la imagen
+        // Validar los datos recibidos
         $request->validate([
             'id_posgrado_programa' => 'required|exists:posgrados_programas,id_posgrado_programa',
             'id_posgrado_nivel' => 'required|exists:posgrado_niveles,id_posgrado_nivel',
@@ -58,7 +58,7 @@ class PosgradoMateriasController extends Controller
         // Manejo de la imagen: Si hay una nueva imagen, se guarda y se elimina la anterior
         if ($request->hasFile('imagen')) {
             if ($materia->imagen !== 'default.png') {
-                \File::delete(public_path('materias_imagenes/' . $materia->imagen)); // Eliminar la imagen anterior si no es nula
+                \File::delete(public_path('materias_imagenes/' . $materia->imagen));
             }
 
             // Guardar la nueva imagen

@@ -125,6 +125,16 @@
 <!-- Main JS -->
 <script src="{{ asset('assets/js/main.js') }}"></script>
 
+
+<script src="{{ asset('assets/js/utils.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        @if(Session::has('success'))
+        showMessage("{{ Session::get('success') }}", 'success', 'Login Exitoso', 'success');
+        @endif
+    });
+</script>
+
 <!-- Page JS -->
 <script src="{{ asset('assets/js/pages-auth.js') }}"></script>
 </body>

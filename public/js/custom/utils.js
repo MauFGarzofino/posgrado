@@ -6,22 +6,34 @@ function applyDebounce(func, delay = 300) {
     };
 }
 
-function showMessage(message, type = 'success') {
-    const messageContainer = document.getElementById('messageContainer');
-    const alertType = type === 'success' ? 'alert-success' : 'alert-danger';
+function showMessage(message, type = 'success', title = '') {
+    // Opciones globales para el toastr
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": true,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000", // Tiempo que aparece el toast
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
 
-    const messageElement = document.createElement('div');
-    messageElement.classList.add('alert', alertType, 'alert-dismissible', 'fade', 'show');
-    messageElement.setAttribute('role', 'alert');
-    messageElement.innerHTML = `
-        ${message}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    `;
-
-    messageContainer.appendChild(messageElement);
-
-    setTimeout(() => {
-        const alert = bootstrap.Alert.getOrCreateInstance(messageElement);
-        alert.close();
-    }, 3000); // Desaparece en 3 segundos
+    // Según el tipo, mostramos el mensaje con título
+    if (type === 'success') {
+        toastr.success(message, title || '¡Éxito!');
+    } else if (type === 'error') {
+        toastr.error(message, title || 'Error');
+    } else if (type === 'info') {
+        toastr.info(message, title || 'Información');
+    } else if (type === 'warning') {
+        toastr.warning(message, title || 'Advertencia');
+    }
 }
+

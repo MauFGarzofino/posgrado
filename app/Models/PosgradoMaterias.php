@@ -42,6 +42,7 @@ class PosgradoMaterias extends Model
         return $this->belongsTo(PosgradoNivel::class, 'id_posgrado_nivel');
     }
 
+    // Relación con PersonaDocente a través de PosgradoAsignacionesDocentes
     public function docentes()
     {
         return $this->hasManyThrough(
@@ -53,4 +54,11 @@ class PosgradoMaterias extends Model
             'id_persona_docente'
         );
     }
+
+    // Relación con las asignaciones de docentes
+    public function asignaciones()
+    {
+        return $this->hasMany(PosgradoAsignacionesDocentes::class, 'id_posgrado_materia');
+    }
 }
+

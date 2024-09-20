@@ -45,12 +45,13 @@ class AsignacionDocentesController extends Controller
         $existingAssignment = PosgradoAsignacionesDocentes::where('id_posgrado_materia', $request->materia_id)
             ->where('id_persona_docente', $request->docente_id)
             ->where('id_gestion_periodo', $request->id_gestion_periodo)
+            ->where('grupo', $request->grupo)
             ->first();
 
         if ($existingAssignment) {
             return response()->json([
                 'success' => false,
-                'message' => 'El docente ya está asignado a esta materia en el periodo seleccionado.'
+                'message' => 'El docente ya está asignado a esta materia en el periodo y grupo seleccionado.'
             ], 400);
         }
 
